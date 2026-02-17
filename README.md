@@ -1,12 +1,12 @@
 # Rusty
 
-## Advanced Programming Techniques - Class Project
+## Advanced programming techniques - class project
 
-### Implementing a Basic Entity Component System and a Turn-Based Terminal Game
+### Implementing a basic entity component system and a turn-based terminal game
 
 ---
 
-## Project Overview
+## Project overview
 
 This project explores the design and implementation of a minimal Entity Component System (ECS) written in Rust, accompanied by a small turn-based terminal dungeon crawler used to validate and demonstrate the engine’s architecture.
 
