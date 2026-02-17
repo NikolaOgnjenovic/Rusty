@@ -65,9 +65,9 @@ impl World {
 mod tests {
     use super::*;
 
-    struct Health(i32);
-    struct Position { x: f32, y: f32 }
-    struct DamageEvent(i32);
+    struct Health(u32);
+    struct Tag();
+    struct DamageEvent(u32);
 
     #[test]
     fn test_world_basics() {
@@ -76,14 +76,14 @@ mod tests {
         let e2 = world.create_entity();
 
         world.add_component(e1, Health(100));
-        world.add_component(e1, Position { x: 0.0, y: 0.0 });
+        world.add_component(e1, Tag());
         world.add_component(e2, Health(50));
 
         // Test retrieval
         assert_eq!(world.get_component::<Health>(e1).unwrap().0, 100);
         assert_eq!(world.get_component::<Health>(e2).unwrap().0, 50);
-        assert!(world.get_component::<Position>(e1).is_some());
-        assert!(world.get_component::<Position>(e2).is_none());
+        assert!(world.get_component::<Tag>(e1).is_some());
+        assert!(world.get_component::<Tag>(e2).is_none());
 
         // Test mutation
         if let Some(h) = world.get_component_mut::<Health>(e1) {
@@ -97,7 +97,7 @@ mod tests {
         assert!(health_entities.contains(&e1));
         assert!(health_entities.contains(&e2));
 
-        let pos_entities = world.query_entities::<Position>();
+        let pos_entities = world.query_entities::<Tag>();
         assert_eq!(pos_entities.len(), 1);
         assert!(pos_entities.contains(&e1));
     }
