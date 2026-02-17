@@ -3,5 +3,12 @@
 version = 4
 
 [[package]]
-name = "rust-ecs"
+name = "rusty-ecs-core"
 version = "0.1.0"
+
+[[package]]
+name = "text-game"
+version = "0.1.0"
+dependencies = [
+ "rusty-ecs-core",
+]

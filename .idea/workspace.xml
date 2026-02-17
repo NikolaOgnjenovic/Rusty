@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/rusty-ecs-core/Cargo.toml">
+      <package file="$PROJECT_DIR$/rusty-ecs-core">
+        <feature name="default" enabled="true" />
+      </package>
+    </cargoProject>
+    <cargoProject FILE="$PROJECT_DIR$/text-game/Cargo.toml">
+      <package file="$PROJECT_DIR$/text-game">
+        <feature name="default" enabled="true" />
+      </package>
+    </cargoProject>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9d39a271-4f4b-4272-9c93-84fd6462d716" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/Cargo.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/Cargo.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/src/main.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/.rustc_info.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/CACHEDIR.TAG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.cargo-lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-2e4eae3edaf9105c/dep-lib-rusty_ecs_core" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-2e4eae3edaf9105c/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-2e4eae3edaf9105c/lib-rusty_ecs_core" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-2e4eae3edaf9105c/lib-rusty_ecs_core.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-382824339e85d110/dep-lib-rusty_ecs_core" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-382824339e85d110/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-382824339e85d110/lib-rusty_ecs_core" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/rusty-ecs-core-382824339e85d110/lib-rusty_ecs_core.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-0570339377e1e6e7/bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-0570339377e1e6e7/bin-text-game.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-0570339377e1e6e7/dep-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-0570339377e1e6e7/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-1f44632cc354adb5/dep-test-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-1f44632cc354adb5/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-1f44632cc354adb5/test-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-1f44632cc354adb5/test-bin-text-game.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-68e9d010ef2f2ac3/bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-68e9d010ef2f2ac3/bin-text-game.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-68e9d010ef2f2ac3/dep-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-68e9d010ef2f2ac3/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-f7ac8fa98e4b0d22/dep-test-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-f7ac8fa98e4b0d22/invoked.timestamp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-f7ac8fa98e4b0d22/test-bin-text-game" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/.fingerprint/text-game-f7ac8fa98e4b0d22/test-bin-text-game.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/librusty_ecs_core-2e4eae3edaf9105c.rlib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/librusty_ecs_core-2e4eae3edaf9105c.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/librusty_ecs_core-382824339e85d110.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/libtext_game-0570339377e1e6e7.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/libtext_game-1f44632cc354adb5.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/rusty_ecs_core-2e4eae3edaf9105c.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/rusty_ecs_core-382824339e85d110.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game-0570339377e1e6e7.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game-1f44632cc354adb5.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game-f7ac8fa98e4b0d22.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game-f7ac8fa98e4b0d22.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game-f7ac8fa98e4b0d22.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/deps/text_game.pdb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/04o4hutl3wz8w0traw8qu36m4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/0skq53uq9mjcc42easge1lh7l.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/0z56m2jdie4d9flw4rpq6z0le.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/13ce0chpks8mr1q05xu3p5wj6.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/16tsw9rk5z6tglx7ewoaqk921.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/1fjlgmnd4pgsdegmha540sudu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/1uu3ow52uttf0xykk549qqb5f.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/2md4qfspzo35znex2we7xgp92.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/2nt8hb1fyhr81oi8mdfmqjaah.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/3micz7gsk7nixsg2auy8v9xlb.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/50fz7c1kmw43kwgh2ae0hk97a.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/53k4jdq9fkzg31l8w6lk7m4ox.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/57j60zz7i01eq92kx2fu7mo0j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/62ktzysm6arbpqh09cxjlw886.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/6dje6z8paiaam9pe5gjsdexhn.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/6xtfgnh8kbhxblr4ovnmjzsxm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/8l4dx94b8bqnl5u5c496lr07v.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/970s115qeuyvmbhqikzqcafr8.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/9jjg93cj48nef26ndza72etqh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/9lhojtbso55rcyllt4my2akhn.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/a6fyx3k3ep1en9byi1lrr6cp2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/aq7nwivsow4amhzqbrjz5c2d9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/b4uaoor0h0bvvgbbeisumx7rh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/bteq7nokb2912qjt7aguplquc.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/bx4jjfxzk235vey4exyeaee21.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/dd0ig1fi0lvv1887ifbgkumj6.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/djqmd6d5cufq4k7a9n00dhaue.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/dquj81em405knx343l4ceg569.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/eg6xs14q9rzbvvaxtp9lsph41.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/f027oxrh0c3o3drgknco089l7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/f0hozck2us4h4f5f8tqdmcwsm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/metadata.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b-2meuk7etlzc09ixb7j9v1rjno/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-0gqnv1vemh8a8/s-hfw07qhjkp-0w5xp8b.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-21fj65v8a7oq4/s-hfw09vs0i4-07ybojs-3dtojz4gt1lqzojsnrwk7j4a1/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-21fj65v8a7oq4/s-hfw09vs0i4-07ybojs-3dtojz4gt1lqzojsnrwk7j4a1/metadata.rmeta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-21fj65v8a7oq4/s-hfw09vs0i4-07ybojs-3dtojz4gt1lqzojsnrwk7j4a1/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-21fj65v8a7oq4/s-hfw09vs0i4-07ybojs-3dtojz4gt1lqzojsnrwk7j4a1/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/rusty_ecs_core-21fj65v8a7oq4/s-hfw09vs0i4-07ybojs.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/0ifwm3cc5tl624mt171uocf2w.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/1iuv9nwmlmf5t3rw88c8gn3qm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/4cdigkaegtpzuidjrpmmbl1a7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/5w855xrbuw2x95l1q8mvfx176.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/8tvc5yj2d04g0ljcd28tqhzup.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5-eymn2pm90v79enz26txev2vao/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-0ec7y5t89d7kt/s-hfw0994bip-0m001p5.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw279tx1d-0jkn0sk-clrvz348issr1kk78x68div1y/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw279tx1d-0jkn0sk-clrvz348issr1kk78x68div1y/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw279tx1d-0jkn0sk-clrvz348issr1kk78x68div1y/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw279tx1d-0jkn0sk.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw27aw8pp-08u0emb-9s56xzqmvp021twwaxvvmzrbp/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw27aw8pp-08u0emb-9s56xzqmvp021twwaxvvmzrbp/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw27aw8pp-08u0emb-9s56xzqmvp021twwaxvvmzrbp/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-34sgqs9bd9xyd/s-hfw27aw8pp-08u0emb.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw279twho-034q9rt-1mhf7sqqyw2h6sx9ji22nt358/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw279twho-034q9rt-1mhf7sqqyw2h6sx9ji22nt358/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw279twho-034q9rt-1mhf7sqqyw2h6sx9ji22nt358/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw279twho-034q9rt.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw27aw8pt-1sp2apg-33wluml3vsdnx1zfh1trnap7l/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw27aw8pt-1sp2apg-33wluml3vsdnx1zfh1trnap7l/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw27aw8pt-1sp2apg-33wluml3vsdnx1zfh1trnap7l/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-35fuh6xwt8l7t/s-hfw27aw8pt-1sp2apg.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/04awwzes18feai3daba6p5bwm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/07xk3vm3jv52ruitzpvquvcwr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/0ehfp7wisy9xusnh5eivjcl0m.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/0mu028ho97m00j21nl26fwv65.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/0pun025guq3aczw59xg38h7cd.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/0qdth6e9vpkcqnucr0w963evc.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/127v8pc07oqjklfcz5qtitv5j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/1djfd8994kuy4f5ha2tt23qxr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/1lfbks1znsv4psgkmo86bdnm1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/1p3cx0ttelj89dnlj5jh5wpya.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/1qr7e9s2s9i76oqcdx0r5vs06.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/1yme8xw3zbtbc3wr3cdz3i3r2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/2aeurx4rirxhsdda0tszsk3dz.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/2mtjmc2xh79323h16i8yirmfr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/2on0md5qs3yllquno209kkq6t.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/2yacdnvnafzdmq35mpmljnbov.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/31n1zzr0cd31m76w218vae8jq.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/31nss65v6u1uvo9mya1g3mmj4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/3m1reotz9szvz2z4j066xzez5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/3r5y2vi9b37f0r20jkhnt0az1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/3vcjs7yk7eg6uqjmxlw1w3b5n.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/3y0ismuo56xpc0lbgjt6bipcl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/47gylh7dm41uuvx1oapg945p9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/49ghxz5q3jq3c89ao260k7njf.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/4ae8madlimdnqyuc3pr4ljbpe.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/4et41l5l4biy7fow2j81vd5pu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/4kp8q520d0501m4jzfeo1fycl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/50g6qolwx5ag0k4pra7tcoh8r.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/58ohgu9wvxidynzphaoj5btb0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/5g10c8lph9tqlydqotk2jg4zv.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/5pa6lehmk71za0wxaod3b6csu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/659c57u4z7c64zq9te3n62v4e.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/6d3afurfh7cl807gttfjn207d.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/74wyqsvoed3jh9vwm4zp7w05g.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/76gssyhwzupazmy7kyys5hu16.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/7jvr9vltosia0vt24qkq57m98.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/7lmara1t99by7g8u8ysnraav0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/85zwhyao6tozfz5roz4warvvm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/8drg505ito9hig9x6x93ipw4t.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/8e6nee5x3mas5uic7eocsh12a.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/8tyth7ctoeb5aqgzswj9hxfx0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/8whhk6m30sgbkpuhpmuoidlxl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/91yi1iu1lt8a5zjptu58lmjgk.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/95espq1hn2n0fb1azeramaylx.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/95jqy07322i45zljr9iynufnh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/985wyxixpzko7pisa2dwgr8nx.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/9d3z33wcfihlmhis5bvljcvse.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/9n6fzxnq5h1vj07na1n3bts0g.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/9nbyiq0y4csv81uyk5fxhdhj9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/a8ldxqcvcj9sg8hye8ift4o2h.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/aaxrt6vzrdct0kowjuvqkrb9p.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/amcrapxpoxsnl3zp9otpmpin5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/amxx7gkmssf668gs9p5jpszcg.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/aykzuppgzt21uclbjh005yuw0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/azcdoufkfgm6fow4ja100ynkl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/c68m1guochmfplxoao1432qkg.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/cax2nernnp0un7i2h42bisyf9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/cczuw5gw0dnj8fe1d8hlef4by.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/cdj1nuabkda5taqg1m6ij6o1y.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/chk306mtj71dm5lsam0abwubh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/ckcrv8zy3oyy8km04ix4vvji2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/cnzyzxe8uim0vibhv5bd9f83z.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/crclynwceb9ea4jb5ynbkvy7z.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/cszh3fle4o94xqtsc4lnghki4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/ctl59uc8968770v959t62ml1n.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/d92pmazr4junhqzsb6ydtwea7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dbkg4xsc3spa3u1wy24zvbn4m.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dijwadwerdgkgx957p4ls5h46.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/diw7scfdwm4v24vtvo1lk5nkr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dnclaq86qb816kk7ha1mz8j7w.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dsvpksnga9xk6j1ol0yrt9pn9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/dvxam20rnvphcul5wms8l00c2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/e7e5mq7azh55qhum12fb0aiyd.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/e9huco5fdenitbo73dbp4jr0j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/ejswoxc14qwtci0ao66s8507j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/ezhpm4xcu99fjff6smi2jrqbm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi-2xlzb66e2fkngrvoyisl9txgz/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw08d6viu-0z0kuqi.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/04awwzes18feai3daba6p5bwm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/07xk3vm3jv52ruitzpvquvcwr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/0ehfp7wisy9xusnh5eivjcl0m.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/0mu028ho97m00j21nl26fwv65.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/0pun025guq3aczw59xg38h7cd.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/0qdth6e9vpkcqnucr0w963evc.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/127v8pc07oqjklfcz5qtitv5j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/1djfd8994kuy4f5ha2tt23qxr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/1lfbks1znsv4psgkmo86bdnm1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/1p3cx0ttelj89dnlj5jh5wpya.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/1qr7e9s2s9i76oqcdx0r5vs06.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/1yme8xw3zbtbc3wr3cdz3i3r2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/2aeurx4rirxhsdda0tszsk3dz.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/2mtjmc2xh79323h16i8yirmfr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/2on0md5qs3yllquno209kkq6t.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/2yacdnvnafzdmq35mpmljnbov.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/31n1zzr0cd31m76w218vae8jq.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/31nss65v6u1uvo9mya1g3mmj4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/3m1reotz9szvz2z4j066xzez5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/3r5y2vi9b37f0r20jkhnt0az1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/3vcjs7yk7eg6uqjmxlw1w3b5n.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/3y0ismuo56xpc0lbgjt6bipcl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/47gylh7dm41uuvx1oapg945p9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/49ghxz5q3jq3c89ao260k7njf.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/4ae8madlimdnqyuc3pr4ljbpe.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/4et41l5l4biy7fow2j81vd5pu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/4kp8q520d0501m4jzfeo1fycl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/50g6qolwx5ag0k4pra7tcoh8r.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/58ohgu9wvxidynzphaoj5btb0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/5g10c8lph9tqlydqotk2jg4zv.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/5pa6lehmk71za0wxaod3b6csu.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/659c57u4z7c64zq9te3n62v4e.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/6d3afurfh7cl807gttfjn207d.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/74wyqsvoed3jh9vwm4zp7w05g.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/76gssyhwzupazmy7kyys5hu16.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/7jvr9vltosia0vt24qkq57m98.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/7lmara1t99by7g8u8ysnraav0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/85zwhyao6tozfz5roz4warvvm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/8drg505ito9hig9x6x93ipw4t.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/8e6nee5x3mas5uic7eocsh12a.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/8tyth7ctoeb5aqgzswj9hxfx0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/8whhk6m30sgbkpuhpmuoidlxl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/91yi1iu1lt8a5zjptu58lmjgk.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/95espq1hn2n0fb1azeramaylx.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/95jqy07322i45zljr9iynufnh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/985wyxixpzko7pisa2dwgr8nx.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/9d3z33wcfihlmhis5bvljcvse.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/9n6fzxnq5h1vj07na1n3bts0g.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/9nbyiq0y4csv81uyk5fxhdhj9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/a8ldxqcvcj9sg8hye8ift4o2h.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/aaxrt6vzrdct0kowjuvqkrb9p.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/amcrapxpoxsnl3zp9otpmpin5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/amxx7gkmssf668gs9p5jpszcg.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/aykzuppgzt21uclbjh005yuw0.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/azcdoufkfgm6fow4ja100ynkl.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/c68m1guochmfplxoao1432qkg.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/cax2nernnp0un7i2h42bisyf9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/cczuw5gw0dnj8fe1d8hlef4by.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/cdj1nuabkda5taqg1m6ij6o1y.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/chk306mtj71dm5lsam0abwubh.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/ckcrv8zy3oyy8km04ix4vvji2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/cnzyzxe8uim0vibhv5bd9f83z.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/crclynwceb9ea4jb5ynbkvy7z.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/cszh3fle4o94xqtsc4lnghki4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/ctl59uc8968770v959t62ml1n.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/d92pmazr4junhqzsb6ydtwea7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dbkg4xsc3spa3u1wy24zvbn4m.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dep-graph.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dijwadwerdgkgx957p4ls5h46.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/diw7scfdwm4v24vtvo1lk5nkr.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dnclaq86qb816kk7ha1mz8j7w.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dsvpksnga9xk6j1ol0yrt9pn9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/dvxam20rnvphcul5wms8l00c2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/e7e5mq7azh55qhum12fb0aiyd.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/e9huco5fdenitbo73dbp4jr0j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/ejswoxc14qwtci0ao66s8507j.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/ezhpm4xcu99fjff6smi2jrqbm.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/query-cache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm-1mt5fnmbpo20z8ysiifc4wimw/work-products.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/incremental/text_game-3jj4xstixbi14/s-hfw0gagkf5-0cforxm.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/text-game.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/text-game.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/text-game/target/debug/text_game.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Rust-ECS.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="RsBuildProfile:test" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="5WkZ7Z7p" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="38np8cqXeRxRgQRCiLFzn7eOOrz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cargo.Test entity::tests::test_destroy_stale_entity_is_ignored.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/Projects/Faks/NPT/Rust-ECS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "language.rust.rustfmt",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\Faks\NPT\Rust-ECS\ecs" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Test entity::tests::test_destroy_stale_entity_is_ignored" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="buildProfileId" value="test" />
+      <option name="command" value="test --package rust-ecs --lib entity::tests::test_destroy_stale_entity_is_ignored -- --exact" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo.Test entity::tests::test_destroy_stale_entity_is_ignored" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d39a271-4f4b-4272-9c93-84fd6462d716" name="Changes" comment="" />
+      <created>1769445033523</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1769445033523</updated>
+      <workItem from="1769445034871" duration="772000" />
+      <workItem from="1771238691500" duration="886000" />
+      <workItem from="1771239622629" duration="270000" />
+      <workItem from="1771239937567" duration="5597000" />
+      <workItem from="1771323526211" duration="778000" />
+      <workItem from="1771341045481" duration="943000" />
+      <workItem from="1771342219582" duration="4724000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
