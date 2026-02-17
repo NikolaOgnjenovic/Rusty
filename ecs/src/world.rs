@@ -127,8 +127,9 @@ mod tests {
         assert!(world.get_component::<Health>(e1).is_none());
         
         let e2 = world.create_entity();
-        // e2 should be the same as e1 due to ID reuse
-        assert_eq!(e1, e2);
+        // e2 should reuse e1's ID but have a different generation
+        assert_eq!(e1.id, e2.id);
+        assert_ne!(e1.generation, e2.generation);
         assert!(world.get_component::<Health>(e2).is_none());
     }
 }
