@@ -1,9 +1,9 @@
-use rusty_ecs_core::{Entity, World};
+use rusty_ecs_core::{Entity, World, System, SystemExecutor};
 use std::io::{self, Write};
 
 // Components
-#[derive(Clone)]
-struct Name(pub String);
+#[derive(Clone, Copy)]
+struct Name(&'static str);
 
 #[derive(Clone, Copy)]
 struct Health {
@@ -25,33 +25,84 @@ struct Player;
 #[derive(Clone, Copy)]
 struct Enemy;
 
+// Events
+struct AttackEvent {
+    pub attacker: Entity,
+    pub target: Entity,
+    pub damage: i32,
+}
+
+// Systems
+struct DamageSystem;
+
+impl System for DamageSystem {
+    fn run(&mut self, world: &mut World) {
+        let attacks = world.take_events::<AttackEvent>();
+        for attack in attacks {
+            let mut damage = attack.damage;
+            if is_defending(world, attack.target) {
+                damage = (damage / 2).max(0);
+            }
+
+            let target_name = world
+                .get_component::<Name>(attack.target)
+                .map(|n| n.0)
+                .unwrap_or("Unknown");
+            let attacker_name = world
+                .get_component::<Name>(attack.attacker)
+                .map(|n| n.0)
+                .unwrap_or("Unknown");
+            let attacker_is_player = world.get_component::<Player>(attack.attacker).is_some();
+
+            if let Some(h) = world.get_component_mut::<Health>(attack.target) {
+                h.hp = (h.hp - damage).max(0);
+
+                if attacker_is_player {
+                    println!(
+                        "You strike {} for {} damage! (HP: {}/{})",
+                        target_name, damage, h.hp, h.max
+                    );
+                } else {
+                    println!(
+                        "{} hits you for {} damage! (HP: {}/{})",
+                        attacker_name, damage, h.hp, h.max
+                    );
+                }
+            }
+        }
+    }
+}
+
 fn main() {
     println!("Welcome to Rusty Text Battle!\n");
 
     let mut world = World::new();
 
     let player = world.create_entity();
-    world.add_component(player, Name("Hero".to_string()));
+    world.add_component(player, Name("Hero"));
     world.add_component(player, Player);
     world.add_component(player, Health { hp: 45, max: 45 });
     world.add_component(player, Damage { value: 7 });
     world.add_component(player, Defending(false));
 
-    let enemies = vec![
+    let enemies_data = vec![
         ("Goblin", 12, 3, vec!["Slash", "Bite"]),
         ("Orc", 18, 5, vec!["Heavy Swing", "Headbutt"]),
         ("Necromancer", 22, 6, vec!["Shadow Bolt", "Bone Spike"]),
     ];
 
     let mut enemy_entities: Vec<Entity> = Vec::new();
-    for (name, hp, dmg, _attacks) in &enemies {
+    for (name, hp, dmg, _attacks) in &enemies_data {
         let e = world.create_entity();
-        world.add_component(e, Name((*name).to_string()));
+        world.add_component(e, Name(*name));
         world.add_component(e, Enemy);
         world.add_component(e, Health { hp: *hp, max: *hp });
         world.add_component(e, Damage { value: *dmg });
         enemy_entities.push(e);
     }
+
+    let mut executor = SystemExecutor::new();
+    executor.add_system(DamageSystem);
 
     let mut current_enemy_index = 0usize;
 
@@ -85,8 +136,8 @@ fn main() {
             continue;
         }
 
-        let en_name: String = world.get_component::<Name>(enemy).unwrap().0.clone();
-        let attacks = &enemies[current_enemy_index].3;
+        let en_name = world.get_component::<Name>(enemy).unwrap().0;
+        let attacks = &enemies_data[current_enemy_index].3;
         println!("An enemy approaches: {}", en_name);
         println!("It brandishes these attacks: {}\n", attacks.join(", "));
 
@@ -102,12 +153,11 @@ fn main() {
         match action.as_str() {
             "attack" | "a" => {
                 let dmg = world.get_component::<Damage>(player).unwrap().value;
-                apply_damage(&mut world, enemy, dmg);
-                let after = world.get_component::<Health>(enemy).unwrap();
-                println!(
-                    "You strike {} for {} damage! (HP: {}/{})",
-                    en_name, dmg, after.hp, after.max
-                );
+                world.push_event(AttackEvent {
+                    attacker: player,
+                    target: enemy,
+                    damage: dmg,
+                });
             }
             "defend" | "d" => {
                 set_defending(&mut world, player, true);
@@ -122,26 +172,33 @@ fn main() {
             }
         }
 
+        // Run systems to process player's attack
+        executor.run(&mut world);
+
         let enemy_alive = world
             .get_component::<Health>(enemy)
             .map(|h| h.hp > 0)
             .unwrap_or(false);
+        
         if !enemy_alive {
             println!("{} collapses!", en_name);
             continue;
         }
 
-        let enemy_attack_name = &enemies[current_enemy_index].3[rand_index(attacks.len())];
-        let mut enemy_damage = world.get_component::<Damage>(enemy).unwrap().value;
-        if is_defending(&world, player) {
-            enemy_damage = (enemy_damage / 2).max(0);
-        }
-        apply_damage(&mut world, player, enemy_damage);
-        let after = world.get_component::<Health>(player).unwrap();
-        println!(
-            "{} uses {} and hits you for {} damage! (HP: {}/{})\n",
-            en_name, enemy_attack_name, enemy_damage, after.hp, after.max
-        );
+        // Enemy turn
+        let enemy_attack_name = &enemies_data[current_enemy_index].3[rand_index(attacks.len())];
+        let enemy_damage = world.get_component::<Damage>(enemy).unwrap().value;
+        
+        println!("{} uses {}!", en_name, enemy_attack_name);
+        world.push_event(AttackEvent {
+            attacker: enemy,
+            target: player,
+            damage: enemy_damage,
+        });
+
+        // Run systems to process enemy's attack
+        executor.run(&mut world);
+        println!();
     }
 
     println!("Thanks for playing!");
@@ -155,12 +212,6 @@ fn prompt_player_action() -> String {
         input = input.trim().to_lowercase();
     }
     input
-}
-
-fn apply_damage(world: &mut World, target: Entity, amount: i32) {
-    if let Some(h) = world.get_component_mut::<Health>(target) {
-        h.hp = (h.hp - amount).max(0);
-    }
 }
 
 fn set_defending(world: &mut World, entity: Entity, value: bool) {
