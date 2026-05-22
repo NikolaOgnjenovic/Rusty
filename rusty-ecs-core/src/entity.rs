@@ -1,9 +1,12 @@
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Entity {
     pub id: u32,
     pub generation: u32,
 }
 
+#[derive(Serialize, Deserialize, Clone)]
 pub struct EntityManager {
     next_id: u32,
     free_ids: Vec<u32>,

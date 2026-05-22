@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 rusty-ecs-core = { path = "..\\rusty-ecs-core" }
+serde = { version = "1.0", features = ["derive"] }

@@ -1,14 +1,18 @@
 use crate::entity::Entity;
 use std::any::{Any, TypeId};
 use std::collections::HashMap;
+use serde::ser::Serialize;
+use serde::de::{Deserialize};
 
-pub trait Component: Any + 'static {}
-impl<T: Any + 'static> Component for T {}
+pub trait Component: Any + Serialize + for<'de> Deserialize<'de> + 'static {}
+impl<T: Any + Serialize + for<'de> Deserialize<'de> + 'static> Component for T {}
 
 pub trait ComponentStorage: Any {
     fn as_any(&self) -> &dyn Any;
     fn as_any_mut(&mut self) -> &mut dyn Any;
     fn remove(&mut self, entity: Entity);
+    fn serialize_storage(&self) -> serde_json::Value;
+    fn deserialize_storage(&mut self, value: serde_json::Value);
 }
 
 pub struct HashMapComponentStorage<T: Component> {
@@ -51,35 +55,78 @@ impl<T: Component> ComponentStorage for HashMapComponentStorage<T> {
     fn remove(&mut self, entity: Entity) {
         self.components.remove(&entity);
     }
+
+    fn serialize_storage(&self) -> serde_json::Value {
+        let map: HashMap<String, &T> = self.components.iter()
+            .map(|(e, c)| (format!("{}:{}", e.id, e.generation), c))
+            .collect();
+        match serde_json::to_value(&map) {
+            Ok(val) => val,
+            Err(e) => {
+                eprintln!("Failed to serialize storage: {}", e);
+                serde_json::Value::Null
+            }
+        }
+    }
+
+    fn deserialize_storage(&mut self, value: serde_json::Value) {
+        match serde_json::from_value::<HashMap<String, T>>(value) {
+            Ok(map) => {
+                self.components.clear();
+                for (k, v) in map {
+                    let parts: Vec<&str> = k.split(':').collect();
+                    if parts.len() == 2 {
+                        if let (Ok(id), Ok(generation)) = (parts[0].parse::<u32>(), parts[1].parse::<u32>()) {
+                            self.components.insert(Entity { id, generation }, v);
+                        }
+                    }
+                }
+            }
+            Err(e) => {
+                eprintln!("Failed to deserialize storage: {}", e);
+            }
+        }
+    }
 }
 
 pub struct ComponentManager {
     storages: HashMap<TypeId, Box<dyn ComponentStorage>>,
+    type_names: HashMap<String, TypeId>,
 }
 
 impl ComponentManager {
     pub fn new() -> Self {
         Self {
             storages: HashMap::new(),
+            type_names: HashMap::new(),
         }
     }
 
-    pub fn register<T: Component>(&mut self) {
+    pub fn register<T: Component>(&mut self, name: &str) {
         let type_id = TypeId::of::<T>();
+        self.type_names.insert(name.to_string(), type_id);
         if !self.storages.contains_key(&type_id) {
             self.storages
                 .insert(type_id, Box::new(HashMapComponentStorage::<T>::new()));
         }
     }
 
-    pub fn get_storage<T: Component>(&self) -> Option<&HashMapComponentStorage<T>> {
+    pub fn get_storage(&self, type_id: &TypeId) -> Option<&Box<dyn ComponentStorage>> {
+        self.storages.get(type_id)
+    }
+
+    pub fn get_storage_mut(&mut self, type_id: &TypeId) -> Option<&mut Box<dyn ComponentStorage>> {
+        self.storages.get_mut(type_id)
+    }
+
+    pub fn get_storage_by_type<T: Component>(&self) -> Option<&HashMapComponentStorage<T>> {
         self.storages
             .get(&TypeId::of::<T>())?
             .as_any()
             .downcast_ref::<HashMapComponentStorage<T>>()
     }
 
-    pub fn get_storage_mut<T: Component>(&mut self) -> Option<&mut HashMapComponentStorage<T>> {
+    pub fn get_storage_mut_by_type<T: Component>(&mut self) -> Option<&mut HashMapComponentStorage<T>> {
         let storage = self.storages.get_mut(&TypeId::of::<T>())?;
         storage
             .as_any_mut()
@@ -87,8 +134,12 @@ impl ComponentManager {
     }
 
     pub fn add_component<T: Component>(&mut self, entity: Entity, component: T) {
-        self.register::<T>();
-        if let Some(storage) = self.get_storage_mut::<T>() {
+        let type_id = TypeId::of::<T>();
+        if !self.storages.contains_key(&type_id) {
+            self.storages
+                .insert(type_id, Box::new(HashMapComponentStorage::<T>::new()));
+        }
+        if let Some(storage) = self.get_storage_mut_by_type::<T>() {
             storage.insert(entity, component);
         }
     }
@@ -98,20 +149,42 @@ impl ComponentManager {
             storage.remove(entity);
         }
     }
+
+    pub fn serialize_all(&self) -> HashMap<String, serde_json::Value> {
+        let mut serialized = HashMap::new();
+        for (name, type_id) in &self.type_names {
+            if let Some(storage) = self.storages.get(type_id) {
+                let val = storage.serialize_storage();
+                serialized.insert(name.clone(), val);
+            }
+        }
+        serialized
+    }
+
+    pub fn deserialize_all(&mut self, serialized: HashMap<String, serde_json::Value>) {
+        for (name, value) in serialized {
+            if let Some(type_id) = self.type_names.get(&name) {
+                if let Some(storage) = self.storages.get_mut(type_id) {
+                    storage.deserialize_storage(value);
+                }
+            }
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use crate::{ComponentManager, Entity, HashMapComponentStorage};
     use crate::component::ComponentStorage;
+    use serde::{Serialize, Deserialize};
 
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Serialize, Deserialize)]
     struct Position {
         x: f32,
         y: f32,
     }
 
-    #[derive(Debug, PartialEq)]
+    #[derive(Debug, PartialEq, Serialize, Deserialize)]
     struct Velocity {
         dx: f32,
         dy: f32,
@@ -178,9 +251,9 @@ mod tests {
     fn test_register_and_get_storage() {
         let mut manager = ComponentManager::new();
 
-        manager.register::<Position>();
+        manager.register::<Position>("Position");
 
-        let storage = manager.get_storage::<Position>();
+        let storage = manager.get_storage_by_type::<Position>();
         assert!(storage.is_some());
     }
 
@@ -191,7 +264,7 @@ mod tests {
 
         manager.add_component(entity, Position { x: 3.0, y: 4.0 });
 
-        let storage = manager.get_storage::<Position>().unwrap();
+        let storage = manager.get_storage_by_type::<Position>().unwrap();
         assert_eq!(
             storage.get(entity),
             Some(&Position { x: 3.0, y: 4.0 })
@@ -206,8 +279,8 @@ mod tests {
         manager.add_component(entity, Position { x: 1.0, y: 2.0 });
         manager.add_component(entity, Velocity { dx: 0.5, dy: 1.5 });
 
-        let pos_storage = manager.get_storage::<Position>().unwrap();
-        let vel_storage = manager.get_storage::<Velocity>().unwrap();
+        let pos_storage = manager.get_storage_by_type::<Position>().unwrap();
+        let vel_storage = manager.get_storage_by_type::<Velocity>().unwrap();
 
         assert_eq!(
             pos_storage.get(entity),
@@ -230,8 +303,8 @@ mod tests {
 
         manager.remove_all_components(entity);
 
-        let pos_storage = manager.get_storage::<Position>().unwrap();
-        let vel_storage = manager.get_storage::<Velocity>().unwrap();
+        let pos_storage = manager.get_storage_by_type::<Position>().unwrap();
+        let vel_storage = manager.get_storage_by_type::<Velocity>().unwrap();
 
         assert!(pos_storage.get(entity).is_none());
         assert!(vel_storage.get(entity).is_none());
@@ -240,6 +313,25 @@ mod tests {
     #[test]
     fn test_get_storage_returns_none_if_not_registered() {
         let manager = ComponentManager::new();
-        assert!(manager.get_storage::<Position>().is_none());
+        assert!(manager.get_storage_by_type::<Position>().is_none());
+    }
+
+    #[test]
+    fn test_serialization() {
+        let mut manager = ComponentManager::new();
+        manager.register::<Position>("Position");
+        
+        let e1 = Entity { id: 1, generation: 0 };
+        manager.add_component(e1, Position { x: 10.0, y: 20.0 });
+        
+        let serialized = manager.serialize_all();
+        assert!(serialized.contains_key("Position"));
+        
+        let mut new_manager = ComponentManager::new();
+        new_manager.register::<Position>("Position");
+        new_manager.deserialize_all(serialized);
+        
+        let storage = new_manager.get_storage_by_type::<Position>().unwrap();
+        assert_eq!(storage.get(e1), Some(&Position { x: 10.0, y: 20.0 }));
     }
 }

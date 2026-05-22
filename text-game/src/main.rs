@@ -1,28 +1,29 @@
 use rusty_ecs_core::{Entity, World, System, SystemExecutor};
 use std::io::{self, Write};
+use serde::{Serialize, Deserialize};
 
 // Components
-#[derive(Clone, Copy)]
-struct Name(&'static str);
+#[derive(Clone, Serialize, Deserialize)]
+struct Name(String);
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 struct Health {
     pub hp: i32,
     pub max: i32,
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 struct Damage {
     pub value: i32,
 }
 
-#[derive(Clone, Copy, Default)]
+#[derive(Clone, Copy, Default, Serialize, Deserialize)]
 struct Defending(pub bool);
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 struct Player;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Serialize, Deserialize)]
 struct Enemy;
 
 // Events
@@ -46,12 +47,12 @@ impl System for DamageSystem {
 
             let target_name = world
                 .get_component::<Name>(attack.target)
-                .map(|n| n.0)
-                .unwrap_or("Unknown");
+                .map(|n| n.0.clone())
+                .unwrap_or("Unknown".to_string());
             let attacker_name = world
                 .get_component::<Name>(attack.attacker)
-                .map(|n| n.0)
-                .unwrap_or("Unknown");
+                .map(|n| n.0.clone())
+                .unwrap_or("Unknown".to_string());
             let attacker_is_player = world.get_component::<Player>(attack.attacker).is_some();
 
             if let Some(h) = world.get_component_mut::<Health>(attack.target) {
@@ -79,7 +80,7 @@ fn main() {
     let mut world = World::new();
 
     let player = world.create_entity();
-    world.add_component(player, Name("Hero"));
+    world.add_component(player, Name("Hero".to_string()));
     world.add_component(player, Player);
     world.add_component(player, Health { hp: 45, max: 45 });
     world.add_component(player, Damage { value: 7 });
@@ -94,7 +95,7 @@ fn main() {
     let mut enemy_entities: Vec<Entity> = Vec::new();
     for (name, hp, dmg, _attacks) in &enemies_data {
         let e = world.create_entity();
-        world.add_component(e, Name(*name));
+        world.add_component(e, Name(name.to_string()));
         world.add_component(e, Enemy);
         world.add_component(e, Health { hp: *hp, max: *hp });
         world.add_component(e, Damage { value: *dmg });
@@ -130,13 +131,13 @@ fn main() {
         if !enemy_alive {
             println!(
                 "{} has been defeated!",
-                world.get_component::<Name>(enemy).unwrap().0
+                world.get_component::<Name>(enemy).unwrap().0.clone()
             );
             current_enemy_index += 1;
             continue;
         }
 
-        let en_name = world.get_component::<Name>(enemy).unwrap().0;
+        let en_name = world.get_component::<Name>(enemy).unwrap().0.clone();
         let attacks = &enemies_data[current_enemy_index].3;
         println!("An enemy approaches: {}", en_name);
         println!("It brandishes these attacks: {}\n", attacks.join(", "));

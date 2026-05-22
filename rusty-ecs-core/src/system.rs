@@ -30,8 +30,11 @@ impl SystemExecutor {
 mod tests {
     use super::*;
     use crate::world::World;
+    use serde::{Serialize, Deserialize};
 
+    #[derive(Serialize, Deserialize)]
     struct CounterComponent(i32);
+    #[derive(Serialize, Deserialize)]
     struct FlagComponent(bool);
 
     struct CounterIncrementorSystem;
