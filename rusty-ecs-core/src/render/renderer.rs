@@ -5,6 +5,7 @@ use std::collections::HashMap;
 use std::fmt::{Display, Formatter};
 use std::path::Path;
 use wgpu::util::DeviceExt;
+use winit::raw_window_handle::{HasDisplayHandle, HasWindowHandle};
 use winit::window::Window;
 
 const QUAD_VERTICES: &[f32] = &[
@@ -20,7 +21,7 @@ pub enum RenderError {
     DeviceRequest(String),
     SurfaceCreation(String),
     SurfaceFormatUnavailable,
-    Surface(wgpu::SurfaceError),
+    SurfaceAcquire(String),
     TextureDecode(image::ImageError),
     Io(std::io::Error),
     InvalidTextureDataLength { expected: usize, actual: usize },
@@ -34,7 +35,7 @@ impl Display for RenderError {
             Self::DeviceRequest(e) => write!(f, "failed to create device: {e}"),
             Self::SurfaceCreation(e) => write!(f, "failed to create surface: {e}"),
             Self::SurfaceFormatUnavailable => write!(f, "no compatible surface format found"),
-            Self::Surface(e) => write!(f, "surface error: {e}"),
+            Self::SurfaceAcquire(e) => write!(f, "surface error: {e}"),
             Self::TextureDecode(e) => write!(f, "texture decode error: {e}"),
             Self::Io(e) => write!(f, "io error: {e}"),
             Self::InvalidTextureDataLength { expected, actual } => {
@@ -56,12 +57,6 @@ impl From<std::io::Error> for RenderError {
 impl From<image::ImageError> for RenderError {
     fn from(value: image::ImageError) -> Self {
         Self::TextureDecode(value)
-    }
-}
-
-impl From<wgpu::SurfaceError> for RenderError {
-    fn from(value: wgpu::SurfaceError) -> Self {
-        Self::Surface(value)
     }
 }
 
@@ -202,14 +197,21 @@ impl Renderer2D {
     async fn new_async(window: &Window) -> Result<Self, RenderError> {
         let size = window.inner_size();
         let instance = wgpu::Instance::default();
-        let target = {
-            // SAFETY: The caller keeps the window alive for the renderer lifetime.
-            let value = unsafe { wgpu::SurfaceTargetUnsafe::from_window(window) }
-                .map_err(|e| RenderError::SurfaceCreation(e.to_string()))?;
-            value
+        let raw_display_handle = window
+            .display_handle()
+            .map_err(|e| RenderError::SurfaceCreation(e.to_string()))?
+            .as_raw();
+        let raw_window_handle = window
+            .window_handle()
+            .map_err(|e| RenderError::SurfaceCreation(e.to_string()))?
+            .as_raw();
+        let target = wgpu::SurfaceTargetUnsafe::RawHandle {
+            raw_display_handle: Some(raw_display_handle),
+            raw_window_handle,
         };
         let surface = {
-            // SAFETY: We use a valid window-derived target and keep it alive externally.
+            // SAFETY: Raw handles are fetched from a live `winit::window::Window` and remain valid
+            // while the window outlives the renderer.
             let value = unsafe { instance.create_surface_unsafe(target) }
                 .map_err(|e| RenderError::SurfaceCreation(e.to_string()))?;
             value
@@ -222,18 +224,17 @@ impl Renderer2D {
                 compatible_surface: Some(&surface),
             })
             .await
-            .ok_or(RenderError::AdapterNotFound)?;
+            .map_err(|_| RenderError::AdapterNotFound)?;
 
         let (device, queue) = adapter
-            .request_device(
-                &wgpu::DeviceDescriptor {
-                    label: Some("renderer2d-device"),
-                    required_features: wgpu::Features::empty(),
-                    required_limits: wgpu::Limits::default(),
-                    memory_hints: wgpu::MemoryHints::default(),
-                },
-                None,
-            )
+            .request_device(&wgpu::DeviceDescriptor {
+                label: Some("renderer2d-device"),
+                required_features: wgpu::Features::empty(),
+                required_limits: wgpu::Limits::default(),
+                memory_hints: wgpu::MemoryHints::default(),
+                experimental_features: wgpu::ExperimentalFeatures::disabled(),
+                trace: wgpu::Trace::Off,
+            })
             .await
             .map_err(|e| RenderError::DeviceRequest(e.to_string()))?;
 
@@ -330,8 +331,8 @@ impl Renderer2D {
 
         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             label: Some("sprite-pipeline-layout"),
-            bind_group_layouts: &[&texture_bind_group_layout, &camera_layout],
-            push_constant_ranges: &[],
+            bind_group_layouts: &[Some(&texture_bind_group_layout), Some(&camera_layout)],
+            immediate_size: 0,
         });
 
         let pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
@@ -339,7 +340,7 @@ impl Renderer2D {
             layout: Some(&pipeline_layout),
             vertex: wgpu::VertexState {
                 module: &shader,
-                entry_point: "vs_main",
+                entry_point: Some("vs_main"),
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 buffers: &[
                     wgpu::VertexBufferLayout {
@@ -375,7 +376,7 @@ impl Renderer2D {
             },
             fragment: Some(wgpu::FragmentState {
                 module: &shader,
-                entry_point: "fs_main",
+                entry_point: Some("fs_main"),
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 targets: &[Some(wgpu::ColorTargetState {
                     format,
@@ -386,7 +387,7 @@ impl Renderer2D {
             primitive: wgpu::PrimitiveState::default(),
             depth_stencil: None,
             multisample: wgpu::MultisampleState::default(),
-            multiview: None,
+            multiview_mask: None,
             cache: None,
         });
 
@@ -497,14 +498,14 @@ impl Renderer2D {
             view_formats: &[],
         });
         self.queue.write_texture(
-            wgpu::ImageCopyTexture {
+            wgpu::TexelCopyTextureInfo {
                 texture: &texture,
                 mip_level: 0,
                 origin: wgpu::Origin3d::ZERO,
                 aspect: wgpu::TextureAspect::All,
             },
             data,
-            wgpu::ImageDataLayout {
+            wgpu::TexelCopyBufferLayout {
                 offset: 0,
                 bytes_per_row: Some(4 * w),
                 rows_per_image: Some(h),
@@ -516,7 +517,7 @@ impl Renderer2D {
         let sampler = self.device.create_sampler(&wgpu::SamplerDescriptor {
             mag_filter: wgpu::FilterMode::Nearest,
             min_filter: wgpu::FilterMode::Nearest,
-            mipmap_filter: wgpu::FilterMode::Nearest,
+            mipmap_filter: wgpu::MipmapFilterMode::Nearest,
             ..Default::default()
         });
         let bind_group = self.device.create_bind_group(&wgpu::BindGroupDescriptor {
@@ -603,65 +604,92 @@ impl Renderer2D {
         instances: &[InstanceGpu],
         order: &[SpriteBatchItem],
     ) -> Result<(), RenderError> {
-        let frame = self.surface.get_current_texture()?;
-        let view = frame
-            .texture
-            .create_view(&wgpu::TextureViewDescriptor::default());
-        let mut encoder =
-            self.device
-                .create_command_encoder(&wgpu::CommandEncoderDescriptor {
-                    label: Some("renderer2d-encoder"),
-                });
-
-        let instance_buffer = self.device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-            label: Some("sprite-instance-buffer"),
-            contents: bytemuck::cast_slice(instances),
-            usage: wgpu::BufferUsages::VERTEX,
-        });
-        self.queue.write_buffer(
-            &self.camera_buffer,
-            0,
-            bytemuck::bytes_of(&self.update_camera_uniform()),
-        );
-
+        let frame = match self.surface.get_current_texture() {
+            wgpu::CurrentSurfaceTexture::Success(frame)
+            | wgpu::CurrentSurfaceTexture::Suboptimal(frame) => frame,
+            wgpu::CurrentSurfaceTexture::Timeout | wgpu::CurrentSurfaceTexture::Occluded => {
+                return Ok(());
+            }
+            wgpu::CurrentSurfaceTexture::Outdated | wgpu::CurrentSurfaceTexture::Lost => {
+                self.surface.configure(&self.device, &self.config);
+                return Ok(());
+            }
+            wgpu::CurrentSurfaceTexture::Validation => {
+                return Err(RenderError::SurfaceAcquire(
+                    "surface validation error while acquiring current texture".to_string(),
+                ));
+            }
+        };
         {
-            let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
-                label: Some("renderer2d-pass"),
-                color_attachments: &[Some(wgpu::RenderPassColorAttachment {
-                    view: &view,
-                    resolve_target: None,
-                    ops: wgpu::Operations {
-                        load: wgpu::LoadOp::Clear(wgpu::Color {
-                            r: self.background[0] as f64,
-                            g: self.background[1] as f64,
-                            b: self.background[2] as f64,
-                            a: self.background[3] as f64,
-                        }),
-                        store: wgpu::StoreOp::Store,
-                    },
-                })],
-                depth_stencil_attachment: None,
-                timestamp_writes: None,
-                occlusion_query_set: None,
-            });
-            pass.set_pipeline(&self.pipeline);
-            pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-            pass.set_vertex_buffer(1, instance_buffer.slice(..));
-            pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
+            let view = frame
+                .texture
+                .create_view(&wgpu::TextureViewDescriptor::default());
+            let mut encoder =
+                self.device
+                    .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+                        label: Some("renderer2d-encoder"),
+                    });
 
-            for (i, item) in order.iter().enumerate() {
-                if let Some(texture) = self.texture_registry.get(item.texture_id) {
-                    pass.set_bind_group(0, &texture.bind_group, &[]);
-                    pass.set_bind_group(1, &self.camera_bind_group, &[]);
-                    let idx = i as u32;
-                    pass.draw_indexed(0..self.num_indices, 0, idx..(idx + 1));
+            let instance_buffer = self
+                .device
+                .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                    label: Some("sprite-instance-buffer"),
+                    contents: bytemuck::cast_slice(instances),
+                    usage: wgpu::BufferUsages::VERTEX,
+                });
+            self.queue.write_buffer(
+                &self.camera_buffer,
+                0,
+                bytemuck::bytes_of(&self.update_camera_uniform()),
+            );
+
+            {
+                let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
+                    label: Some("renderer2d-pass"),
+                    color_attachments: &[Some(wgpu::RenderPassColorAttachment {
+                        view: &view,
+                        resolve_target: None,
+                        depth_slice: None,
+                        ops: wgpu::Operations {
+                            load: wgpu::LoadOp::Clear(wgpu::Color {
+                                r: self.background[0] as f64,
+                                g: self.background[1] as f64,
+                                b: self.background[2] as f64,
+                                a: self.background[3] as f64,
+                            }),
+                            store: wgpu::StoreOp::Store,
+                        },
+                    })],
+                    depth_stencil_attachment: None,
+                    timestamp_writes: None,
+                    occlusion_query_set: None,
+                    multiview_mask: None,
+                });
+                pass.set_pipeline(&self.pipeline);
+                pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
+                pass.set_vertex_buffer(1, instance_buffer.slice(..));
+                pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
+
+                for (i, item) in order.iter().enumerate() {
+                    if let Some(texture) = self.texture_registry.get(item.texture_id) {
+                        pass.set_bind_group(0, &texture.bind_group, &[]);
+                        pass.set_bind_group(1, &self.camera_bind_group, &[]);
+                        let idx = i as u32;
+                        pass.draw_indexed(0..self.num_indices, 0, idx..(idx + 1));
+                    }
                 }
             }
-        }
 
-        self.queue.submit(std::iter::once(encoder.finish()));
+            self.queue.submit(std::iter::once(encoder.finish()));
+        }
         frame.present();
         Ok(())
+    }
+}
+
+impl Drop for Renderer2D {
+    fn drop(&mut self) {
+        let _ = self.device.poll(wgpu::PollType::wait_indefinitely());
     }
 }
 
