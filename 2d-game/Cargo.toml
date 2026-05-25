@@ -1,0 +1,9 @@
+[package]
+name = "two-d-game"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rusty-ecs-core = { path = "..\\rusty-ecs-core" }
+winit = "0.30"
+serde = { version = "1.0", features = ["derive"] }

@@ -3,6 +3,7 @@ pub mod component;
 pub mod event;
 pub mod world;
 pub mod system;
+pub mod render;
 
 pub use entity::{Entity, EntityManager};
 pub use component::{Component, ComponentManager, HashMapComponentStorage};
