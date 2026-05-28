@@ -1,7 +1,8 @@
 use crate::render::renderer::{RenderError, Renderer2D};
 use std::time::Instant;
-use winit::event::{ElementState, Event, WindowEvent};
-use winit::event_loop::EventLoop;
+use winit::application::ApplicationHandler;
+use winit::event::{ElementState, WindowEvent};
+use winit::event_loop::{ActiveEventLoop, EventLoop};
 use winit::keyboard::{KeyCode, PhysicalKey};
 use winit::window::{Window, WindowAttributes};
 
@@ -10,18 +11,6 @@ use winit::window::{Window, WindowAttributes};
 pub enum RuntimeControl {
     Continue,
     Exit,
-}
-
-/// Creates a default window and renderer pair for 2D games.
-pub fn init_2d_window_and_renderer(
-    title: &str,
-) -> Result<(EventLoop<()>, Window, Renderer2D), RenderError> {
-    let event_loop = EventLoop::new().map_err(|err| RenderError::SurfaceCreation(err.to_string()))?;
-    let window = event_loop
-        .create_window(WindowAttributes::default().with_title(title))
-        .map_err(|err| RenderError::SurfaceCreation(err.to_string()))?;
-    let renderer = Renderer2D::new(&window)?;
-    Ok((event_loop, window, renderer))
 }
 
 /// Returns `Some(code)` only when a keyboard key was pressed.
@@ -37,47 +26,145 @@ pub fn pressed_key_code(event: &WindowEvent) -> Option<KeyCode> {
     }
 }
 
-/// Runs a 2D game event loop and delegates game-specific logic via callbacks.
-pub fn run_2d_game<FK, FF>(
-    event_loop: EventLoop<()>,
-    window: Window,
-    mut renderer: Renderer2D,
-    mut on_key_pressed: FK,
-    mut on_frame: FF,
-) -> Result<(), winit::error::EventLoopError>
+struct GameApp<FI, FK, FF>
 where
+    FI: FnMut(&Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError> + 'static,
     FK: FnMut(KeyCode, &Window, &mut Renderer2D) -> RuntimeControl + 'static,
-    FF: FnMut(f32, (u32, u32), &mut Renderer2D) -> Result<RuntimeControl, RenderError> + 'static,
+    FF: FnMut(f32, (u32, u32), &Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError>
+        + 'static,
 {
-    let mut last_frame = Instant::now();
-    event_loop.run(move |event, target| match event {
-        Event::WindowEvent { event, .. } => match event {
-            WindowEvent::CloseRequested => target.exit(),
+    title: String,
+    window: Option<Window>,
+    renderer: Option<Renderer2D>,
+    last_frame: Instant,
+    on_init: FI,
+    on_key_pressed: FK,
+    on_frame: FF,
+}
+
+impl<FI, FK, FF> ApplicationHandler for GameApp<FI, FK, FF>
+where
+    FI: FnMut(&Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError> + 'static,
+    FK: FnMut(KeyCode, &Window, &mut Renderer2D) -> RuntimeControl + 'static,
+    FF: FnMut(f32, (u32, u32), &Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError>
+        + 'static,
+{
+    fn resumed(&mut self, event_loop: &ActiveEventLoop) {
+        if self.window.is_some() {
+            return;
+        }
+
+        let window = match event_loop
+            .create_window(WindowAttributes::default().with_title(self.title.clone()))
+        {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Window creation failed: {err}");
+                event_loop.exit();
+                return;
+            }
+        };
+
+        let mut renderer = match Renderer2D::new(&window) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Renderer initialization failed: {err}");
+                event_loop.exit();
+                return;
+            }
+        };
+
+        match (self.on_init)(&window, &mut renderer) {
+            Ok(RuntimeControl::Continue) => {}
+            Ok(RuntimeControl::Exit) => {
+                event_loop.exit();
+                return;
+            }
+            Err(err) => {
+                eprintln!("Initialization failed: {err}");
+                event_loop.exit();
+                return;
+            }
+        }
+
+        self.last_frame = Instant::now();
+        self.window = Some(window);
+        self.renderer = Some(renderer);
+    }
+
+    fn window_event(
+        &mut self,
+        event_loop: &ActiveEventLoop,
+        window_id: winit::window::WindowId,
+        event: WindowEvent,
+    ) {
+        let (window, renderer) = match (self.window.as_ref(), self.renderer.as_mut()) {
+            (Some(window), Some(renderer)) if window.id() == window_id => (window, renderer),
+            _ => return,
+        };
+
+        match event {
+            WindowEvent::CloseRequested => event_loop.exit(),
             WindowEvent::Resized(size) => renderer.resize(size.width, size.height),
             WindowEvent::RedrawRequested => {
                 let now = Instant::now();
-                let dt = (now - last_frame).as_secs_f32().min(0.05);
-                last_frame = now;
+                let frame_dt = (now - self.last_frame).as_secs_f32();
+                self.last_frame = now;
 
                 let size = window.inner_size();
-                match on_frame(dt, (size.width, size.height), &mut renderer) {
+                match (self.on_frame)(
+                    frame_dt.max(0.0),
+                    (size.width, size.height),
+                    window,
+                    renderer,
+                ) {
                     Ok(RuntimeControl::Continue) => {}
-                    Ok(RuntimeControl::Exit) => target.exit(),
+                    Ok(RuntimeControl::Exit) => event_loop.exit(),
                     Err(err) => {
                         eprintln!("Frame update/render failed: {err}");
-                        target.exit();
+                        event_loop.exit();
                     }
                 }
             }
             other => {
                 if let Some(code) = pressed_key_code(&other) {
-                    if on_key_pressed(code, &window, &mut renderer) == RuntimeControl::Exit {
-                        target.exit();
+                    if (self.on_key_pressed)(code, window, renderer) == RuntimeControl::Exit {
+                        event_loop.exit();
                     }
                 }
             }
-        },
-        Event::AboutToWait => window.request_redraw(),
-        _ => {}
-    })
+        }
+    }
+
+    fn about_to_wait(&mut self, _event_loop: &ActiveEventLoop) {
+        if let Some(window) = self.window.as_ref() {
+            window.request_redraw();
+        }
+    }
+}
+
+/// Runs a 2D game event loop and delegates game-specific logic via callbacks.
+pub fn run_2d_game<FI, FK, FF>(
+    title: &str,
+    on_init: FI,
+    on_key_pressed: FK,
+    on_frame: FF,
+) -> Result<(), winit::error::EventLoopError>
+where
+    FI: FnMut(&Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError> + 'static,
+    FK: FnMut(KeyCode, &Window, &mut Renderer2D) -> RuntimeControl + 'static,
+    FF: FnMut(f32, (u32, u32), &Window, &mut Renderer2D) -> Result<RuntimeControl, RenderError>
+        + 'static,
+{
+    let event_loop = EventLoop::new()?;
+    let mut app = GameApp {
+        title: title.to_string(),
+        window: None,
+        renderer: None,
+        last_frame: Instant::now(),
+        on_init,
+        on_key_pressed,
+        on_frame,
+    };
+    event_loop.run_app(&mut app)
 }

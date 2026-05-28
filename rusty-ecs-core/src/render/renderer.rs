@@ -642,13 +642,18 @@ impl Renderer2D {
                         label: Some("renderer2d-encoder"),
                     });
 
-            let instance_buffer = self
-                .device
-                .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                    label: Some("sprite-instance-buffer"),
-                    contents: bytemuck::cast_slice(instances),
-                    usage: wgpu::BufferUsages::VERTEX,
-                });
+            let instance_buffer = if instances.is_empty() {
+                None
+            } else {
+                Some(
+                    self.device
+                        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+                            label: Some("sprite-instance-buffer"),
+                            contents: bytemuck::cast_slice(instances),
+                            usage: wgpu::BufferUsages::VERTEX,
+                        }),
+                )
+            };
             self.queue.write_buffer(
                 &self.camera_buffer,
                 0,
@@ -679,7 +684,9 @@ impl Renderer2D {
                 });
                 pass.set_pipeline(&self.pipeline);
                 pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-                pass.set_vertex_buffer(1, instance_buffer.slice(..));
+                if let Some(instance_buffer) = &instance_buffer {
+                    pass.set_vertex_buffer(1, instance_buffer.slice(..));
+                }
                 pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
 
                 for (i, item) in order.iter().enumerate() {

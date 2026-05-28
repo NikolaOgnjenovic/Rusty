@@ -1478,6 +1478,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19b30a45b0cd0bcca8037f3d0dc3421eaf95327a17cad11964fb8179b4fc4832"
 
 [[package]]
+name = "rendering-benchmark"
+version = "0.1.0"
+dependencies = [
+ "rusty-ecs-core",
+ "serde",
+ "winit",
+]
+
+[[package]]
 name = "rustc-hash"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1860,15 +1869,6 @@ name = "ttf-parser"
 version = "0.25.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2df906b07856748fa3f6e0ad0cbaa047052d4a7dd609e231c4f72cee8c36f31"
-
-[[package]]
-name = "two-d-game"
-version = "0.1.0"
-dependencies = [
- "rusty-ecs-core",
- "serde",
- "winit",
-]
 
 [[package]]
 name = "unicode-ident"
