@@ -258,16 +258,23 @@ impl Renderer2D {
             .or_else(|| caps.formats.first().copied())
             .ok_or(RenderError::SurfaceFormatUnavailable)?;
 
+        let present_mode = if caps.present_modes.contains(&wgpu::PresentMode::Immediate) {
+            wgpu::PresentMode::Immediate
+        } else if caps.present_modes.contains(&wgpu::PresentMode::Mailbox) {
+            wgpu::PresentMode::Mailbox
+        } else {
+            caps.present_modes
+                .first()
+                .copied()
+                .unwrap_or(wgpu::PresentMode::Fifo)
+        };
+
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format,
             width: size.width.max(1),
             height: size.height.max(1),
-            present_mode: caps
-                .present_modes
-                .first()
-                .copied()
-                .unwrap_or(wgpu::PresentMode::Fifo),
+            present_mode,
             alpha_mode: caps
                 .alpha_modes
                 .first()
