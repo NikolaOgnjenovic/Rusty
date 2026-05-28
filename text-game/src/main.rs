@@ -1,4 +1,4 @@
-use rusty_ecs_core::{Entity, World, System, SystemExecutor};
+use rusty::{Entity, World, System, SystemExecutor};
 use std::io::{self, Write};
 use serde::{Serialize, Deserialize};
 

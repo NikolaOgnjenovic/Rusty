@@ -10,28 +10,15 @@
     table(
         table.header[*Скраћеница*][*Опис*],
 
-        [API], [Application Programming Interface (апликациони програмски интерфејс)],
-        [AWS], [Amazon Web Services (Амазон веб сервиси)],
-        [CI/CD], [Continuous Integration / Continuous Delivery
-            (континуирана интеграција / континуирана испорука)],
-        [CORS], [Cross-Origin Resource Sharing (размена ресурса између
-            извора и дестинације различитог порекла)],
-        [CSS], [Cascading Style Sheets (језик за описивање стилова)],
-        [DOM], [Document Object Model (објектни модел документа)],
-        [DTO], [Data Transfer Object (објекат за пренос података)],
-        [HTTP], [HyperText Transfer Protocol (протокол за пренос хипертекста)],
+        [2D], [Two-Dimensional (дводимензионално, у равни)],
+        [3D], [Three-Dimensional (тродимензионално, у простору)],
+        [API], [Application Programming Interface (програмски интерфејс)],
+        [CPU], [Central Processing Unit (централна процесорска јединица)],
+        [CSV], [Comma-Separated Values (текстуални табеларни формат раздвојен зарезима)],
+        [ECS], [Entity Component System (архитектонски модел ентитет–компонента–систем)],
+        [FPS], [Frames Per Second (број кадрова у секунди)],
+        [GPU], [Graphics Processing Unit (графички процесор)],
         [JSON], [JavaScript Object Notation (формат за размену података)],
-        [JWT], [JSON Web Token (сигурносни токен заснован на JSON формату)],
-        [RLS], [Row-Level Security (сигурност на нивоу реда)],
-        [REST], [Representational State Transfer (скуп правила за комуникацију
-            између клијента и сервера)],
-        [RPC], [Remote Procedure Call (позив удаљене процедуре)],
-        [SQL], [Structured Query Language (структурирани упитни језик)],
-        [TLS], [Transport Layer Security (безбедност транспортног слоја)],
-        [UML], [Unified Modeling Language (јeзик за моделовање дијаграма)],
-        [URL], [Uniform Resource Locator (јединствени идентификатор и локатор ресурса)],
-        [UI], [User Interface (кориснички интерфејс)],
-        [UUID], [Universally Unique Identifier (универзално јединствени идентификатор)],
-        [WAL], [Write-Ahead Logging (записивање операција унапред)],
+        [UV], [Texture Coordinates U/V (координате позиционирања текстуре)],
     ),
 )

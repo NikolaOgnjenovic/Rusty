@@ -1,7 +1,7 @@
-use rusty_ecs_core::render::{
+use rusty::render::{
     RuntimeControl, SpriteComponent, TextureId, Transform2D, run_2d_game,
 };
-use rusty_ecs_core::{Entity, World};
+use rusty::{Entity, World};
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::rc::Rc;
@@ -343,7 +343,7 @@ impl PerfScene {
     }
 }
 
-fn load_textures(renderer: &mut rusty_ecs_core::render::Renderer2D) {
+fn load_textures(renderer: &mut rusty::render::Renderer2D) {
     let white = [255, 255, 255, 255];
     if let Err(err) = renderer.load_texture_rgba(WHITE_TEXTURE, 1, 1, &white) {
         eprintln!("Failed to load simulation texture: {err}");

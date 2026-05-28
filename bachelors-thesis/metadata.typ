@@ -1,12 +1,12 @@
-#let format_strane = "iso-b5"         // могуће вредности: iso-b5, a4
-#let naslov = "Шаблон и упутство за писање завршних радова"
-#let autor = "Уписати име и презиме"
+#let format_strane = "a4"
+#let naslov = "Имплементација погона за дводимензионалне видео игре користећи ЕКС архитектуру и програмски језик Rust"
+#let autor = "Никола Огњеновић"
 
 // На енглеском
-#let naslov_eng = "Template and tutorial for thesis preparation"
-#let autor_eng = "Upisati ime i prezime na latinici"
+#let naslov_eng = "Implementation of a game engine for two-dimensional video games using ECS architecture and the Rust programming language"
+#let autor_eng = "Nikola Ognjenović"
 
-#let indeks = "Уписати индекс"
+#let indeks = "SV 51 / 2022"
 
 // Име и презиме ментора
 #let mentor = "Игор Дејановић"
@@ -15,9 +15,7 @@
 
 // Скинути коментаре са одговарајућих линија
 #let studijski_program = "Софтверско инжењерство и информационе технологије"
-//#let studijski_program = "Рачунарство и аутоматика"
-#let stepen = "Мастер академске студије"
-//#let stepen = "Основне академске студије"
+#let stepen = "Основне академске студије"
 
 #let godina = [#datetime.today().year()]
 

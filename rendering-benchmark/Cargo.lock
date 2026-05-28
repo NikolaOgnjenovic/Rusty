@@ -1479,9 +1479,9 @@ checksum = "19b30a45b0cd0bcca8037f3d0dc3421eaf95327a17cad11964fb8179b4fc4832"
 
 [[package]]
 name = "rendering-benchmark"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
- "rusty-ecs-core",
+ "rusty",
  "serde",
  "winit",
 ]
@@ -1534,7 +1534,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b39cdef0fa800fc44525c84ccb54a029961a8215f9619753635a9c0d2538d46d"
 
 [[package]]
-name = "rusty-ecs-core"
+name = "rusty"
 version = "0.1.0"
 dependencies = [
  "bytemuck",

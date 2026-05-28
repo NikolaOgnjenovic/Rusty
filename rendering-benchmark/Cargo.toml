@@ -1,9 +1,9 @@
 [package]
 name = "rendering-benchmark"
-version = "0.1.0"
-edition = "2021"
+version = "1.0.0"
+edition = "2024"
 
 [dependencies]
-rusty-ecs-core = { path = "..\\rusty-ecs-core" }
+rusty = { path = "../rusty" }
 winit = "0.30"
 serde = { version = "1.0", features = ["derive"] }

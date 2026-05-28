@@ -66,9 +66,12 @@
 #counter(page).update(1)
 
 
-// TODO: Овде укључујете поглавља
 #include "poglavlja/1-uvod.typ"
 #include "poglavlja/2-stanje.typ"
+#include "poglavlja/3-arhitektura-projekta.typ"
+#include "poglavlja/4-ecs-implementacija.typ"
+#include "poglavlja/5-rendering-i-wgpu.typ"
+#include "poglavlja/6-benchmark-evaluacija.typ"
 #include "poglavlja/7-zakljucak.typ"
 
 
@@ -108,7 +111,6 @@
     it
 }
 
-// TODO: Додаци - искоментарисати ако се не користе
 #include "poglavlja/dodatak 1 - skracenice.typ"
 #include "poglavlja/dodatak 2 - pojmovi.typ"
 
