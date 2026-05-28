@@ -17,14 +17,23 @@ const QUAD_INDICES: &[u16] = &[0, 1, 2, 2, 3, 0];
 /// Rendering errors produced by the 2D renderer.
 #[derive(Debug)]
 pub enum RenderError {
+    /// No compatible GPU adapter was found.
     AdapterNotFound,
+    /// GPU device creation failed.
     DeviceRequest(String),
+    /// Surface creation failed for the target window.
     SurfaceCreation(String),
+    /// No compatible surface format is available.
     SurfaceFormatUnavailable,
+    /// Failed to acquire the current surface texture.
     SurfaceAcquire(String),
+    /// Image bytes failed to decode.
     TextureDecode(image::ImageError),
+    /// Underlying I/O operation failed.
     Io(std::io::Error),
+    /// Raw texture byte slice length does not match width/height expectations.
     InvalidTextureDataLength { expected: usize, actual: usize },
+    /// A sprite references a texture id that is not loaded.
     MissingTexture(TextureId),
 }
 
@@ -157,6 +166,7 @@ impl TextureRegistry {
         }
     }
 
+    //noinspection ALL
     fn len(&self) -> usize {
         self.textures.len()
     }
@@ -194,6 +204,7 @@ impl Renderer2D {
         pollster::block_on(Self::new_async(window))
     }
 
+    /// Async constructor used internally by [`Self::new`].
     async fn new_async(window: &Window) -> Result<Self, RenderError> {
         let size = window.inner_size();
         let instance = wgpu::Instance::default();
@@ -344,7 +355,7 @@ impl Renderer2D {
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
                 buffers: &[
                     wgpu::VertexBufferLayout {
-                        array_stride: std::mem::size_of::<Vertex>() as wgpu::BufferAddress,
+                        array_stride: size_of::<Vertex>() as wgpu::BufferAddress,
                         step_mode: wgpu::VertexStepMode::Vertex,
                         attributes: &[
                             wgpu::VertexAttribute {
@@ -353,14 +364,14 @@ impl Renderer2D {
                                 format: wgpu::VertexFormat::Float32x2,
                             },
                             wgpu::VertexAttribute {
-                                offset: std::mem::size_of::<[f32; 2]>() as wgpu::BufferAddress,
+                                offset: size_of::<[f32; 2]>() as wgpu::BufferAddress,
                                 shader_location: 1,
                                 format: wgpu::VertexFormat::Float32x2,
                             },
                         ],
                     },
                     wgpu::VertexBufferLayout {
-                        array_stride: std::mem::size_of::<InstanceGpu>() as wgpu::BufferAddress,
+                        array_stride: size_of::<InstanceGpu>() as wgpu::BufferAddress,
                         step_mode: wgpu::VertexStepMode::Instance,
                         attributes: &[
                             wgpu::VertexAttribute { offset: 0, shader_location: 2, format: wgpu::VertexFormat::Float32x2 },
@@ -433,6 +444,7 @@ impl Renderer2D {
         self.background = color;
     }
 
+    //noinspection ALL
     pub(crate) fn background(&self) -> [f32; 4] {
         self.background
     }

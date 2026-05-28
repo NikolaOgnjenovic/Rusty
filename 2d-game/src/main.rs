@@ -1,12 +1,13 @@
-use rusty_ecs_core::render::{Renderer2D, SpriteComponent, TextureId, Transform2D};
+use rusty_ecs_core::render::{
+    Renderer2D, RuntimeControl, SpriteComponent, TextureId, Transform2D,
+    init_2d_window_and_renderer, run_2d_game,
+};
 use rusty_ecs_core::{Entity, World};
 use serde::{Deserialize, Serialize};
+use std::cell::RefCell;
 use std::path::Path;
-use std::time::Instant;
-use winit::event::{ElementState, Event, KeyEvent, WindowEvent};
-use winit::event_loop::EventLoop;
-use winit::keyboard::{KeyCode, PhysicalKey};
-use winit::window::WindowAttributes;
+use std::rc::Rc;
+use winit::keyboard::KeyCode;
 
 const PLAYER_TEXTURE: TextureId = TextureId(1);
 const OBSTACLE_TEXTURE: TextureId = TextureId(2);
@@ -347,83 +348,53 @@ fn load_game_textures(renderer: &mut Renderer2D) {
 }
 
 fn main() {
-    let event_loop = match EventLoop::new() {
-        Ok(loop_ref) => loop_ref,
-        Err(err) => {
-            eprintln!("Failed to create event loop: {err}");
-            return;
-        }
-    };
+    let (event_loop, window, mut renderer) =
+        match init_2d_window_and_renderer("Rusty ECS 2D Runner (press Space to jump)") {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("Failed to initialize 2D runtime: {err}");
+                return;
+            }
+        };
 
-    let window = match event_loop.create_window(
-        WindowAttributes::default().with_title("Rusty ECS 2D Runner (press Space to jump)"),
-    ) {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("Failed to create window: {err}");
-            return;
-        }
-    };
-
-    let mut renderer = match Renderer2D::new(&window) {
-        Ok(value) => value,
-        Err(err) => {
-            eprintln!("Failed to create renderer: {err}");
-            return;
-        }
-    };
     renderer.set_background([0.08, 0.08, 0.1, 1.0]);
     load_game_textures(&mut renderer);
 
     let viewport = window.inner_size();
-    let mut game = RunnerGame::new((viewport.width, viewport.height));
-    let mut last_frame = Instant::now();
+    let game = Rc::new(RefCell::new(RunnerGame::new((viewport.width, viewport.height))));
+    let game_for_keys = Rc::clone(&game);
+    let game_for_frame = Rc::clone(&game);
 
-    let run_result = event_loop.run(move |event, target| match event {
-        Event::WindowEvent { event, .. } => match event {
-            WindowEvent::CloseRequested => target.exit(),
-            WindowEvent::Resized(size) => renderer.resize(size.width, size.height),
-            WindowEvent::KeyboardInput {
-                event:
-                    KeyEvent {
-                        physical_key,
-                        state,
-                        ..
-                    },
-                ..
-            } => {
-                if state == ElementState::Pressed {
-                    match physical_key {
-                        PhysicalKey::Code(KeyCode::Space) => {
-                            if game.is_game_over {
-                                let size = window.inner_size();
-                                game.restart((size.width, size.height));
-                            } else {
-                                game.queue_jump();
-                            }
-                        }
-                        PhysicalKey::Code(KeyCode::KeyR) => {
-                            let size = window.inner_size();
-                            game.restart((size.width, size.height));
-                        }
-                        _ => {}
+    let run_result = run_2d_game(
+        event_loop,
+        window,
+        renderer,
+        move |key, window, _renderer| {
+            let mut game = game_for_keys.borrow_mut();
+            match key {
+                KeyCode::Space => {
+                    if game.is_game_over {
+                        let size = window.inner_size();
+                        game.restart((size.width, size.height));
+                    } else {
+                        game.queue_jump();
                     }
                 }
+                KeyCode::KeyR => {
+                    let size = window.inner_size();
+                    game.restart((size.width, size.height));
+                }
+                _ => {}
             }
-            WindowEvent::RedrawRequested => {
-                let now = Instant::now();
-                let dt = (now - last_frame).as_secs_f32().min(0.05);
-                last_frame = now;
-
-                let size = window.inner_size();
-                game.update(dt, (size.width, size.height));
-                let _ = renderer.render_world(game.world());
-            }
-            _ => {}
+            RuntimeControl::Continue
         },
-        Event::AboutToWait => window.request_redraw(),
-        _ => {}
-    });
+        move |dt, viewport, renderer| {
+            let mut game = game_for_frame.borrow_mut();
+            game.update(dt, viewport);
+            renderer.render_world(game.world())?;
+            Ok(RuntimeControl::Continue)
+        },
+    );
 
     if let Err(err) = run_result {
         eprintln!("Event loop failed: {err}");

@@ -4,40 +4,55 @@ use std::collections::HashMap;
 use serde::ser::Serialize;
 use serde::de::{Deserialize};
 
+/// Marker trait for ECS components.
+///
+/// Components must be `'static` and serializable to support world persistence.
 pub trait Component: Any + Serialize + for<'de> Deserialize<'de> + 'static {}
 impl<T: Any + Serialize + for<'de> Deserialize<'de> + 'static> Component for T {}
 
+/// Type-erased component storage used internally by [`ComponentManager`].
 pub trait ComponentStorage: Any {
+    /// Returns an immutable type-erased reference for downcasting.
     fn as_any(&self) -> &dyn Any;
+    /// Returns a mutable type-erased reference for downcasting.
     fn as_any_mut(&mut self) -> &mut dyn Any;
+    /// Removes a component for the given entity, if present.
     fn remove(&mut self, entity: Entity);
+    /// Serializes the storage into JSON.
     fn serialize_storage(&self) -> serde_json::Value;
+    /// Replaces the storage contents from JSON.
     fn deserialize_storage(&mut self, value: serde_json::Value);
 }
 
+/// HashMap-backed storage mapping entities to components of type `T`.
 pub struct HashMapComponentStorage<T: Component> {
     components: HashMap<Entity, T>,
 }
 
 impl<T: Component> HashMapComponentStorage<T> {
+    /// Creates an empty storage.
     pub fn new() -> Self {
         Self {
             components: HashMap::new(),
         }
     }
 
+    /// Inserts or replaces the component for `entity`.
     pub fn insert(&mut self, entity: Entity, component: T) {
         self.components.insert(entity, component);
     }
 
+    /// Returns an immutable component reference for `entity`.
     pub fn get(&self, entity: Entity) -> Option<&T> {
         self.components.get(&entity)
     }
 
+    /// Returns a mutable component reference for `entity`.
     pub fn get_mut(&mut self, entity: Entity) -> Option<&mut T> {
         self.components.get_mut(&entity)
     }
 
+    /// Iterates over entities that currently own this component type.
     pub fn entities(&self) -> impl Iterator<Item = &Entity> {
         self.components.keys()
     }
@@ -60,13 +75,10 @@ impl<T: Component> ComponentStorage for HashMapComponentStorage<T> {
         let map: HashMap<String, &T> = self.components.iter()
             .map(|(e, c)| (format!("{}:{}", e.id, e.generation), c))
             .collect();
-        match serde_json::to_value(&map) {
-            Ok(val) => val,
-            Err(e) => {
-                eprintln!("Failed to serialize storage: {}", e);
-                serde_json::Value::Null
-            }
-        }
+        serde_json::to_value(&map).unwrap_or_else(|e| {
+            eprintln!("Failed to serialize storage: {}", e);
+            serde_json::Value::Null
+        })
     }
 
     fn deserialize_storage(&mut self, value: serde_json::Value) {
@@ -95,6 +107,7 @@ pub struct ComponentManager {
 }
 
 impl ComponentManager {
+    /// Creates an empty component manager.
     pub fn new() -> Self {
         Self {
             storages: HashMap::new(),
@@ -102,6 +115,7 @@ impl ComponentManager {
         }
     }
 
+    /// Registers a component type and associates it with a stable type name.
     pub fn register<T: Component>(&mut self, name: &str) {
         let type_id = TypeId::of::<T>();
         self.type_names.insert(name.to_string(), type_id);
@@ -111,14 +125,17 @@ impl ComponentManager {
         }
     }
 
+    /// Returns type-erased storage by [`TypeId`].
     pub fn get_storage(&self, type_id: &TypeId) -> Option<&Box<dyn ComponentStorage>> {
         self.storages.get(type_id)
     }
 
+    /// Returns mutable type-erased storage by [`TypeId`].
     pub fn get_storage_mut(&mut self, type_id: &TypeId) -> Option<&mut Box<dyn ComponentStorage>> {
         self.storages.get_mut(type_id)
     }
 
+    /// Returns typed storage for component `T`.
     pub fn get_storage_by_type<T: Component>(&self) -> Option<&HashMapComponentStorage<T>> {
         self.storages
             .get(&TypeId::of::<T>())?
@@ -126,6 +143,7 @@ impl ComponentManager {
             .downcast_ref::<HashMapComponentStorage<T>>()
     }
 
+    /// Returns mutable typed storage for component `T`.
     pub fn get_storage_mut_by_type<T: Component>(&mut self) -> Option<&mut HashMapComponentStorage<T>> {
         let storage = self.storages.get_mut(&TypeId::of::<T>())?;
         storage
@@ -133,6 +151,7 @@ impl ComponentManager {
             .downcast_mut::<HashMapComponentStorage<T>>()
     }
 
+    /// Adds a component to an entity, creating storage for `T` if necessary.
     pub fn add_component<T: Component>(&mut self, entity: Entity, component: T) {
         let type_id = TypeId::of::<T>();
         if !self.storages.contains_key(&type_id) {
@@ -144,12 +163,14 @@ impl ComponentManager {
         }
     }
 
+    /// Removes all component types associated with an entity.
     pub fn remove_all_components(&mut self, entity: Entity) {
         for storage in self.storages.values_mut() {
             storage.remove(entity);
         }
     }
 
+    /// Serializes all registered component storages by their registered names.
     pub fn serialize_all(&self) -> HashMap<String, serde_json::Value> {
         let mut serialized = HashMap::new();
         for (name, type_id) in &self.type_names {
@@ -161,6 +182,7 @@ impl ComponentManager {
         serialized
     }
 
+    /// Deserializes storages from a name-to-JSON map.
     pub fn deserialize_all(&mut self, serialized: HashMap<String, serde_json::Value>) {
         for (name, value) in serialized {
             if let Some(type_id) = self.type_names.get(&name) {

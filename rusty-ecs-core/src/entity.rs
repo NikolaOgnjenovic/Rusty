@@ -1,11 +1,18 @@
 use serde::{Serialize, Deserialize};
 
+/// Stable entity handle identified by an id and generation pair.
+///
+/// `id` may be reused after deletion, while `generation` is incremented to
+/// invalidate stale handles.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Entity {
+    /// Numeric slot identifier.
     pub id: u32,
+    /// Version counter for the slot.
     pub generation: u32,
 }
 
+/// Allocates and recycles [`Entity`] handles.
 #[derive(Serialize, Deserialize, Clone)]
 pub struct EntityManager {
     next_id: u32,
@@ -14,6 +21,7 @@ pub struct EntityManager {
 }
 
 impl EntityManager {
+    /// Creates an empty entity manager.
     pub fn new() -> Self {
         Self {
             next_id: 0,
@@ -22,6 +30,10 @@ impl EntityManager {
         }
     }
 
+    /// Creates a new entity handle.
+    ///
+    /// Reuses a free id when available and preserves the current generation for
+    /// that id. Otherwise, allocates a fresh id with generation `0`.
     pub fn create(&mut self) -> Entity {
         if let Some(id) = self.free_ids.pop() {
             Entity {
@@ -36,6 +48,9 @@ impl EntityManager {
         }
     }
 
+    /// Destroys an entity if the generation matches the currently alive one.
+    ///
+    /// Stale or out-of-range entities are ignored.
     pub fn destroy(&mut self, entity: Entity) {
         if (entity.id as usize) < self.generations.len() {
             if self.generations[entity.id as usize] == entity.generation {

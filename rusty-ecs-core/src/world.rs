@@ -7,6 +7,7 @@ use std::io::{Read, Write};
 use std::path::Path;
 use std::collections::HashMap;
 
+/// Central ECS container for entities, components, and events.
 pub struct World {
     entities: EntityManager,
     components: ComponentManager,
@@ -20,6 +21,7 @@ struct WorldSaveData {
 }
 
 impl World {
+    /// Creates an empty world.
     pub fn new() -> Self {
         Self {
             entities: EntityManager::new(),
@@ -28,35 +30,43 @@ impl World {
         }
     }
 
+    /// Creates and returns a new entity handle.
     pub fn create_entity(&mut self) -> Entity {
         self.entities.create()
     }
 
+    /// Destroys an entity and removes all of its components.
     pub fn destroy_entity(&mut self, entity: Entity) {
         self.components.remove_all_components(entity);
         self.entities.destroy(entity);
     }
 
+    /// Adds or replaces component `T` on an entity.
     pub fn add_component<T: Component>(&mut self, entity: Entity, component: T) {
         self.components.add_component(entity, component);
     }
 
+    /// Gets an immutable component reference for an entity.
     pub fn get_component<T: Component>(&self, entity: Entity) -> Option<&T> {
         self.components.get_storage_by_type::<T>()?.get(entity)
     }
 
+    /// Gets a mutable component reference for an entity.
     pub fn get_component_mut<T: Component>(&mut self, entity: Entity) -> Option<&mut T> {
         self.components.get_storage_mut_by_type::<T>()?.get_mut(entity)
     }
 
+    /// Registers component type `T` with a stable serialization name.
     pub fn register_component<T: Component>(&mut self, name: &str) {
         self.components.register::<T>(name);
     }
 
+    /// Enqueues an event of type `E`.
     pub fn push_event<E: Event>(&mut self, event: E) {
         self.events.push(event);
     }
 
+    /// Drains all queued events of type `E` in FIFO order.
     pub fn take_events<E: Event>(&mut self) -> Vec<E> {
         let mut events = Vec::new();
         if let Some(queue) = self.events.get_queue_mut::<E>() {
@@ -67,6 +77,7 @@ impl World {
         events
     }
 
+    /// Returns all entities currently containing component type `T`.
     pub fn query_entities<T: Component>(&self) -> Vec<Entity> {
         if let Some(storage) = self.components.get_storage_by_type::<T>() {
             storage.entities().cloned().collect()
@@ -75,6 +86,7 @@ impl World {
         }
     }
 
+    /// Saves world entities and registered component storages to a JSON file.
     pub fn save<P: AsRef<Path>>(&self, path: P) -> std::io::Result<()> {
         let save_data = WorldSaveData {
             entities: self.entities.clone(),
@@ -87,6 +99,9 @@ impl World {
         Ok(())
     }
 
+    /// Loads world entities and component storages from a JSON file.
+    ///
+    /// Existing queued events are cleared after load.
     pub fn load<P: AsRef<Path>>(&mut self, path: P) -> std::io::Result<()> {
         let mut file = File::open(path)?;
         let mut json = String::new();

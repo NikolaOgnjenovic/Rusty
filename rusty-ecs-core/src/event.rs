@@ -1,34 +1,44 @@
 use std::any::{Any, TypeId};
 use std::collections::{HashMap, VecDeque};
 
+/// Marker trait for events routed through [`EventManager`].
 pub trait Event: Any + 'static {}
 impl<T: Any + 'static> Event for T {}
 
+/// Type-erased event queue abstraction used internally by [`EventManager`].
 pub trait EventQueueTrait: Any {
+    /// Returns an immutable type-erased queue reference.
     fn as_any(&self) -> &dyn Any;
+    /// Returns a mutable type-erased queue reference.
     fn as_any_mut(&mut self) -> &mut dyn Any;
+    /// Removes all queued events.
     fn clear(&mut self);
 }
 
+/// FIFO queue for one concrete event type.
 pub struct EventQueue<E: Event> {
     events: VecDeque<E>,
 }
 
 impl<E: Event> EventQueue<E> {
+    /// Creates an empty event queue.
     pub fn new() -> Self {
         Self {
             events: VecDeque::new(),
         }
     }
 
+    /// Appends an event to the back of the queue.
     pub fn push(&mut self, event: E) {
         self.events.push_back(event);
     }
 
+    /// Pops the oldest event from the front of the queue.
     pub fn pop(&mut self) -> Option<E> {
         self.events.pop_front()
     }
 
+    /// Iterates over queued events without removing them.
     pub fn iter(&self) -> impl Iterator<Item = &E> {
         self.events.iter()
     }
@@ -53,12 +63,14 @@ pub struct EventManager {
 }
 
 impl EventManager {
+    /// Creates an empty event manager.
     pub fn new() -> Self {
         Self {
             queues: HashMap::new(),
         }
     }
 
+    /// Registers a queue for event type `E` if missing.
     pub fn register<E: Event>(&mut self) {
         let type_id = TypeId::of::<E>();
         if !self.queues.contains_key(&type_id) {
@@ -66,6 +78,7 @@ impl EventManager {
         }
     }
 
+    /// Returns an immutable queue for event type `E`.
     pub fn get_queue<E: Event>(&self) -> Option<&EventQueue<E>> {
         self.queues
             .get(&TypeId::of::<E>())?
@@ -73,11 +86,13 @@ impl EventManager {
             .downcast_ref::<EventQueue<E>>()
     }
 
+    /// Returns a mutable queue for event type `E`.
     pub fn get_queue_mut<E: Event>(&mut self) -> Option<&mut EventQueue<E>> {
         let queue = self.queues.get_mut(&TypeId::of::<E>())?;
         queue.as_any_mut().downcast_mut::<EventQueue<E>>()
     }
 
+    /// Pushes an event, auto-registering its queue when needed.
     pub fn push<E: Event>(&mut self, event: E) {
         self.register::<E>();
         if let Some(queue) = self.get_queue_mut::<E>() {
@@ -85,6 +100,7 @@ impl EventManager {
         }
     }
 
+    /// Clears all registered event queues.
     pub fn clear(&mut self) {
         for queue in self.queues.values_mut() {
             queue.clear();

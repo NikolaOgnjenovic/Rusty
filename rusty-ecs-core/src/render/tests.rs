@@ -14,7 +14,7 @@ fn has_adapter() -> bool {
         instance
             .request_adapter(&wgpu::RequestAdapterOptions::default())
             .await
-            .is_some()
+            .is_ok()
     })
 }
 
