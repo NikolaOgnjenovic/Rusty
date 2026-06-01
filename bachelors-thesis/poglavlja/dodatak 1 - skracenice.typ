@@ -10,15 +10,9 @@
     table(
         table.header[*Скраћеница*][*Опис*],
 
-        [2D], [Two-Dimensional (дводимензионално, у равни)],
-        [3D], [Three-Dimensional (тродимензионално, у простору)],
-        [API], [Application Programming Interface (програмски интерфејс)],
-        [CPU], [Central Processing Unit (централна процесорска јединица)],
-        [CSV], [Comma-Separated Values (текстуални табеларни формат раздвојен зарезима)],
-        [ECS], [Entity Component System (архитектонски модел ентитет–компонента–систем)],
-        [FPS], [Frames Per Second (број кадрова у секунди)],
-        [GPU], [Graphics Processing Unit (графички процесор)],
+        [АПИ], [Application Programming Interface (програмски интерфејс)],
+        [ЕКС], [Entity Component System (ентитет-компонента-систем архитектура)],
         [JSON], [JavaScript Object Notation (формат за размену података)],
-        [UV], [Texture Coordinates U/V (координате позиционирања текстуре)],
+        [UUID], [Universally Unique Identifier]
     ),
 )

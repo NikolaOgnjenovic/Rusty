@@ -86,14 +86,14 @@ fn main() {
     world.add_component(player, Damage { value: 7 });
     world.add_component(player, Defending(false));
 
-    let enemies_data = vec![
+    let enemy_attributes = vec![
         ("Goblin", 12, 3, vec!["Slash", "Bite"]),
         ("Orc", 18, 5, vec!["Heavy Swing", "Headbutt"]),
         ("Necromancer", 22, 6, vec!["Shadow Bolt", "Bone Spike"]),
     ];
 
     let mut enemy_entities: Vec<Entity> = Vec::new();
-    for (name, hp, dmg, _attacks) in &enemies_data {
+    for (name, hp, dmg, _attacks) in &enemy_attributes {
         let e = world.create_entity();
         world.add_component(e, Name(name.to_string()));
         world.add_component(e, Enemy);
@@ -102,8 +102,8 @@ fn main() {
         enemy_entities.push(e);
     }
 
-    let mut executor = SystemExecutor::new();
-    executor.add_system(DamageSystem);
+    let mut system_executor = SystemExecutor::new();
+    system_executor.add_system(DamageSystem);
 
     let mut current_enemy_index = 0usize;
 
@@ -138,7 +138,7 @@ fn main() {
         }
 
         let en_name = world.get_component::<Name>(enemy).unwrap().0.clone();
-        let attacks = &enemies_data[current_enemy_index].3;
+        let attacks = &enemy_attributes[current_enemy_index].3;
         println!("An enemy approaches: {}", en_name);
         println!("It brandishes these attacks: {}\n", attacks.join(", "));
 
@@ -174,7 +174,7 @@ fn main() {
         }
 
         // Run systems to process player's attack
-        executor.run(&mut world);
+        system_executor.run(&mut world);
 
         let enemy_alive = world
             .get_component::<Health>(enemy)
@@ -187,7 +187,7 @@ fn main() {
         }
 
         // Enemy turn
-        let enemy_attack_name = &enemies_data[current_enemy_index].3[rand_index(attacks.len())];
+        let enemy_attack_name = &enemy_attributes[current_enemy_index].3[rand_index(attacks.len())];
         let enemy_damage = world.get_component::<Damage>(enemy).unwrap().value;
         
         println!("{} uses {}!", en_name, enemy_attack_name);
@@ -198,7 +198,7 @@ fn main() {
         });
 
         // Run systems to process enemy's attack
-        executor.run(&mut world);
+        system_executor.run(&mut world);
         println!();
     }
 

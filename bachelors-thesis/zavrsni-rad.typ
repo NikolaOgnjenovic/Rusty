@@ -68,9 +68,9 @@
 
 #include "poglavlja/1-uvod.typ"
 #include "poglavlja/2-stanje.typ"
-#include "poglavlja/3-arhitektura-projekta.typ"
-#include "poglavlja/4-ecs-implementacija.typ"
-#include "poglavlja/5-rendering-i-wgpu.typ"
+#include "poglavlja/3-ecs-implementacija.typ"
+#include "poglavlja/4-rendering-opcije.typ"
+#include "poglavlja/5-ecs-i-wgpu.typ"
 #include "poglavlja/6-benchmark-evaluacija.typ"
 #include "poglavlja/7-zakljucak.typ"
 
