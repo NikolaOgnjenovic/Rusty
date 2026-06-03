@@ -196,6 +196,10 @@ pub struct Renderer2D {
     texture_registry: TextureRegistry,
     camera: Camera2D,
     background: [f32; 4],
+    instance_buffer: wgpu::Buffer,
+    instance_buffer_capacity: usize,
+    visible_sprites: Vec<SpriteBatchItem>,
+    gpu_instances: Vec<InstanceGpu>,
 }
 
 impl Renderer2D {
@@ -428,6 +432,14 @@ impl Renderer2D {
             usage: wgpu::BufferUsages::INDEX,
         });
 
+        let instance_buffer_capacity = 1024;
+        let instance_buffer = device.create_buffer(&wgpu::BufferDescriptor {
+            label: Some("sprite-instance-buffer"),
+            size: (std::mem::size_of::<InstanceGpu>() * instance_buffer_capacity) as u64,
+            usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
+            mapped_at_creation: false,
+        });
+
         Ok(Self {
             device,
             queue,
@@ -443,6 +455,10 @@ impl Renderer2D {
             texture_registry: TextureRegistry::new(),
             camera: Camera2D::new((size.width.max(1), size.height.max(1))),
             background: [0.0, 0.0, 0.0, 1.0],
+            instance_buffer,
+            instance_buffer_capacity,
+            visible_sprites: Vec::new(),
+            gpu_instances: Vec::new(),
         })
     }
 
@@ -577,12 +593,16 @@ impl Renderer2D {
 
     /// Renders all visible `Transform2D + SpriteComponent` entities.
     pub fn render_world(&mut self, world: &World) -> Result<(), RenderError> {
-        let batch = collect_visible_sprites(world);
-        if batch.is_empty() {
+        self.visible_sprites.clear();
+        collect_visible_sprites(world, &mut self.visible_sprites);
+        if self.visible_sprites.is_empty() {
             return self.render_batch(&[]);
         }
-        let mut gpu_instances = Vec::with_capacity(batch.len());
-        for item in &batch {
+        self.gpu_instances.clear();
+        if self.gpu_instances.capacity() < self.visible_sprites.len() {
+            self.gpu_instances.reserve(self.visible_sprites.len() - self.gpu_instances.len());
+        }
+        for item in &self.visible_sprites {
             let tex = self
                 .texture_registry
                 .get(item.texture_id)
@@ -598,7 +618,7 @@ impl Renderer2D {
                     ]
                 })
                 .unwrap_or([0.0, 0.0, 1.0, 1.0]);
-            gpu_instances.push(InstanceGpu {
+            self.gpu_instances.push(InstanceGpu {
                 world_pos: [item.world_pos.0, item.world_pos.1],
                 rotation: item.rotation,
                 _pad0: 0.0,
@@ -610,7 +630,15 @@ impl Renderer2D {
                 _pad1: [0, 0, 0],
             });
         }
-        self.render_batch_with_order(&gpu_instances, &batch)
+        let instances = std::mem::take(&mut self.gpu_instances);
+        let order = std::mem::take(&mut self.visible_sprites);
+        
+        let result = self.render_batch_with_order(&instances, &order);
+        
+        self.gpu_instances = instances;
+        self.visible_sprites = order;
+        
+        result
     }
 
     fn render_batch(&mut self, instances: &[InstanceGpu]) -> Result<(), RenderError> {
@@ -652,14 +680,17 @@ impl Renderer2D {
             let instance_buffer = if instances.is_empty() {
                 None
             } else {
-                Some(
-                    self.device
-                        .create_buffer_init(&wgpu::util::BufferInitDescriptor {
-                            label: Some("sprite-instance-buffer"),
-                            contents: bytemuck::cast_slice(instances),
-                            usage: wgpu::BufferUsages::VERTEX,
-                        }),
-                )
+                if instances.len() > self.instance_buffer_capacity {
+                    self.instance_buffer_capacity = instances.len().max(self.instance_buffer_capacity * 2);
+                    self.instance_buffer = self.device.create_buffer(&wgpu::BufferDescriptor {
+                        label: Some("sprite-instance-buffer"),
+                        size: (std::mem::size_of::<InstanceGpu>() * self.instance_buffer_capacity) as u64,
+                        usage: wgpu::BufferUsages::VERTEX | wgpu::BufferUsages::COPY_DST,
+                        mapped_at_creation: false,
+                    });
+                }
+                self.queue.write_buffer(&self.instance_buffer, 0, bytemuck::cast_slice(instances));
+                Some(&self.instance_buffer)
             };
             self.queue.write_buffer(
                 &self.camera_buffer,
@@ -691,18 +722,30 @@ impl Renderer2D {
                 });
                 pass.set_pipeline(&self.pipeline);
                 pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-                if let Some(instance_buffer) = &instance_buffer {
-                    pass.set_vertex_buffer(1, instance_buffer.slice(..));
+                if let Some(instance_buffer) = instance_buffer {
+                    pass.set_vertex_buffer(1, instance_buffer.slice(0..(instances.len() * std::mem::size_of::<InstanceGpu>()) as u64));
                 }
                 pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint16);
 
-                for (i, item) in order.iter().enumerate() {
-                    if let Some(texture) = self.texture_registry.get(item.texture_id) {
+                let mut i = 0;
+                while i < order.len() {
+                    let texture_id = order[i].texture_id;
+                    let mut start_instance = i;
+                    let mut end_instance = i + 1;
+                    
+                    while end_instance < order.len() && order[end_instance].texture_id == texture_id {
+                        end_instance += 1;
+                    }
+
+                    if let Some(texture) = self.texture_registry.get(texture_id) {
                         pass.set_bind_group(0, &texture.bind_group, &[]);
                         pass.set_bind_group(1, &self.camera_bind_group, &[]);
-                        let idx = i as u32;
-                        pass.draw_indexed(0..self.num_indices, 0, idx..(idx + 1));
+                        
+                        let instance_count = (end_instance - start_instance) as u32;
+                        pass.draw_indexed(0..self.num_indices, 0, start_instance as u32..(start_instance as u32 + instance_count));
                     }
+                    
+                    i = end_instance;
                 }
             }
 
@@ -719,8 +762,8 @@ impl Drop for Renderer2D {
     }
 }
 
-pub(crate) fn collect_visible_sprites(world: &World) -> Vec<SpriteBatchItem> {
-    let mut items = Vec::new();
+pub(crate) fn collect_visible_sprites(world: &World, items: &mut Vec<SpriteBatchItem>) {
+    items.clear();
     for entity in world.query_entities::<Transform2D>() {
         let transform = if let Some(value) = world.get_component::<Transform2D>(entity) {
             value
@@ -747,6 +790,12 @@ pub(crate) fn collect_visible_sprites(world: &World) -> Vec<SpriteBatchItem> {
         });
     }
 
-    items.sort_by_key(|item| item.z);
-    items
+    if items.len() > 1 {
+        let first_z = items[0].z;
+        if items.iter().all(|item| item.z == first_z) {
+            items.sort_by_key(|item| item.texture_id);
+        } else {
+            items.sort_by_key(|item| (item.z, item.texture_id));
+        }
+    }
 }

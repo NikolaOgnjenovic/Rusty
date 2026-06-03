@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Identifier used for renderer-managed textures.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub struct TextureId(pub u32);
 
 /// Sprite data used by the 2D renderer.

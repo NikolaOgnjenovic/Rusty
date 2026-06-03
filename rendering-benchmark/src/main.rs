@@ -10,7 +10,7 @@ use winit::keyboard::KeyCode;
 const WHITE_TEXTURE: TextureId = TextureId(1);
 const UI_TEXTURE: TextureId = TextureId(2);
 
-const MAX_OBJECTS: usize = 50_000;
+const MAX_OBJECTS: usize = 1_000_000;
 const DEFAULT_OBJECTS: usize = 1_500;
 const MIN_RADIUS: f32 = 3.0;
 const MAX_RADIUS: f32 = 11.0;
@@ -160,7 +160,7 @@ impl PerfScene {
         self.title_dirty = false;
         self.title_timer = 0.0;
         format!(
-            "2D ECS Performance Test | FPS {:.1} | Objects {}/{} | Input '{}' + Enter | Arrows=Count/Speed, PgUp/PgDn=Size, R=Randomize",
+            "Тест перформанси | ФПС {:.1} | Ентитета {} / {} | Унос '{}' + Ентер | Стрелице - Број ентитета / Брзина, W / S - Величина ентитета, R - Рандомизација",
             self.fps,
             self.objects.len(),
             self.target_objects,

@@ -18,7 +18,7 @@ impl RenderSystem {
 impl System for RenderSystem {
     fn run(&mut self, world: &mut World) {
         if let Ok(mut renderer) = self.renderer.lock() {
-            let _ = renderer.render_world(world);
+            renderer.render_world(world).expect("Error ocurred during rendering");
         }
     }
 }

@@ -89,7 +89,8 @@ fn camera_zoom_clamp() {
 #[test]
 fn z_order_sort() {
     let world = setup_world_for_batch(&[-1, 5, 0], &[true, true, true]);
-    let batch = collect_visible_sprites(&world);
+    let mut batch = Vec::new();
+    collect_visible_sprites(&world, &mut batch);
     let order: Vec<i32> = batch.iter().map(|i| i.z).collect();
     assert_eq!(order, vec![-1, 0, 5]);
 }
@@ -97,7 +98,8 @@ fn z_order_sort() {
 #[test]
 fn visibility_filter() {
     let world = setup_world_for_batch(&[0, 1, 2], &[true, false, true]);
-    let batch = collect_visible_sprites(&world);
+    let mut batch = Vec::new();
+    collect_visible_sprites(&world, &mut batch);
     assert_eq!(batch.len(), 2);
 }
 
@@ -126,7 +128,8 @@ fn world_query_filter() {
         },
     );
 
-    let batch = collect_visible_sprites(&world);
+    let mut batch = Vec::new();
+    collect_visible_sprites(&world, &mut batch);
     assert_eq!(batch.len(), 3);
 }
 
