@@ -10,14 +10,17 @@
     table(
         table.header[*Скраћеница*][*Опис*],
 
-        [АПИ], [Application Programming Interface (програмски интерфејс)],
-        [ЕКС], [Entity Component System (ентитет-компонента-систем архитектура)],
+        [ЕКС / ECS], [Entity Component System (ентитет-компонента-систем архитектура)],
+        [АПИ / API], [Application Programming Interface (апликациони програмски интерфејс)],
+        [ФПС / FPS], [Frames Per Second (број кадрова у секунди)],
         [JSON], [JavaScript Object Notation (формат за размену података)],
-        [UUID], [Universally Unique Identifier],
-        [CPU], [Central Processing Unit (централна процесорска јединица)],
-        [GPU], [Graphics Processing Unit (графичка процесорска јединица)],
-        [DOTS], [Data-Oriented Technology Stack (технолошки скуп оријентисан на податке)],
-        [FPS], [Frames Per Second (број кадрова у секунди)],
-        [DX12], [DirectX 12 (интерфејс за мултимедију и графику)]
+        [UUID], [Universally Unique Identifier (универзално јединствени идентификатор)],
+        [FIFO], [First In, First Out (први улази, први излази)],
+        [SIMD], [Single Instruction, Multiple Data (једна инструкција, више података)],
+        [SoA], [Structure of Arrays (структура низова)],
+        [RGBA], [Red, Green, Blue, Alpha (црвена, зелена, плава, алфа)],
+        [FFI], [Foreign Function Interface (интерфејс за комуникацију са страним програмским језицима)],
+        [WGSL], [WebGPU Shading Language (језик за писање шејдера за WebGPU)],
+        [UI], [User Interface (кориснички интерфејс)]
     ),
 )
