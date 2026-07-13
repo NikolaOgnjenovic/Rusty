@@ -19,18 +19,29 @@
 
 #let godina = [#datetime.today().year()]
 
-#let kljucne_reci = "Шаблон, завршни рад, упутство"
+#let kljucne_reci = "видео игре, Rust, ECS архитектура, погон, рендеринг, перформансе"
 #let apstrakt = [
-     Овај документ представља упутство за писање завршних радова на Факултету
-     техничких наука Универзитета у Новом Саду. У исто време је и шаблон за Typst.
+     Овај завршни рад описује имплементацију погона за дводимензионалне видео игре,
+     развијеног у програмском језику Rust. Главни циљ је постизање високих
+     перформанси уз стриктно поштовање безбедносних гаранција које пружа Rust,
+     посебно кроз избегавање `unsafe` кода. Рад представља имплементацију ЕКС
+     (Entity Component System) архитектуре која омогућава модуларност и
+     ефикасну обраду података. Истражују се различити приступи рендеровању
+     уз коришћење WebGPU стандарда, уз анализу утицаја ECS дизајна на
+     укупне перформансе погона.
 ]
 
 // На енглеском
-#let kljucne_reci_eng = "Template, thesis, tutorial"
+#let kljucne_reci_eng = "video games, Rust, ECS architecture, game engine, rendering, performance"
 #let apstrakt_eng = [
-     This document provides guidelines for writing final theses at the Faculty
-     of Technical Sciences, University of Novi Sad. At the same time, it serves
-     as a Typst template.
+     This thesis describes the implementation of a 2D game engine developed in the
+     Rust programming language. The main objective is to achieve high performance
+     while strictly adhering to the safety guarantees provided by Rust,
+     particularly by avoiding `unsafe` code. The thesis presents the
+     implementation of an Entity Component System (ECS) architecture that
+     enables modularity and efficient data processing. Various rendering
+     approaches using the WebGPU standard are explored, along with an analysis
+     of the impact of ECS design on the overall performance of the engine.
 ]
 
 // TODO: Текст задатка добијате од ментора. Заменити доле #lorem(100) са текстом задатка.
