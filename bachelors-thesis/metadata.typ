@@ -19,7 +19,7 @@
 
 #let godina = [#datetime.today().year()]
 
-#let kljucne_reci = "видео игре, Rust, ECS архитектура, погон, рендеринг, перформансе"
+#let kljucne_reci = "видео игре, Rust, ECS архитектура, погони за видео игре, рендеринг, перформансе"
 #let apstrakt = [
      Овај завршни рад описује имплементацију погона за дводимензионалне видео игре,
      развијеног у програмском језику Rust. Главни циљ је постизање високих
@@ -27,12 +27,11 @@
      посебно кроз избегавање `unsafe` кода. Рад представља имплементацију ЕКС
      (Entity Component System) архитектуре која омогућава модуларност и
      ефикасну обраду података. Истражују се различити приступи рендеровању
-     уз коришћење WebGPU стандарда, уз анализу утицаја ECS дизајна на
-     укупне перформансе погона.
+     уз коришћење WebGPU стандарда, уз анализу перформанси развијеног погона.
 ]
 
 // На енглеском
-#let kljucne_reci_eng = "video games, Rust, ECS architecture, game engine, rendering, performance"
+#let kljucne_reci_eng = "video games, Rust, ECS architecture, game engines, rendering, performance"
 #let apstrakt_eng = [
      This thesis describes the implementation of a 2D game engine developed in the
      Rust programming language. The main objective is to achieve high performance
@@ -41,7 +40,7 @@
      implementation of an Entity Component System (ECS) architecture that
      enables modularity and efficient data processing. Various rendering
      approaches using the WebGPU standard are explored, along with an analysis
-     of the impact of ECS design on the overall performance of the engine.
+     of the performance of the developed game engine.
 ]
 
 // TODO: Текст задатка добијате од ментора. Заменити доле #lorem(100) са текстом задатка.
