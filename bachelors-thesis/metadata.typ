@@ -43,7 +43,6 @@
      of the performance of the developed game engine.
 ]
 
-// TODO: Текст задатка добијате од ментора. Заменити доле #lorem(100) са текстом задатка.
 #let zadatak = [
 
 Циљ овог завршног рада је пројектовање и имплементација модуларног погона за
@@ -64,7 +63,6 @@
 
 ]
 
-// TODO: Датум одбране и чланове комисије добијате од ментора
 #let datum_odbrane = "10.09.2026"
 #let komisija_predsednik = "Гордана Милосављевић"
 #let komisija_predsednik_zvanje = "редовни професор"
